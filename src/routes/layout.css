@@ -1,2 +1,10 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
+
+@theme {
+    --color-paper: #f4f4f6;
+    --color-carbon: #212529;
+    --color-ocean: #0066cc;
+    --color-ash: #6c757d;
+    --color-blaze: #f26419;
+}

@@ -1,5 +1,5 @@
 <script>
+	import WelcomeBanner from '$lib/components/layout/home/WelcomeBanner.svelte';
 </script>
 
-<h1 class="text-lg font-bold">Main page!</h1>
-<p>Paragraph</p>
+<WelcomeBanner />
