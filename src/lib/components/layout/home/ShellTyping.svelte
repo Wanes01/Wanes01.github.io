@@ -19,8 +19,6 @@
 		pauseAfterDelete = 400
 	}: Props = $props();
 
-	// Only `displayed` needs to be $state — it's the only thing the template reads.
-	// Everything else is plain mutable variables so $effect / reactivity never sees them.
 	let displayed = $state('');
 
 	function sleep(ms: number): Promise<void> {
@@ -28,7 +26,6 @@
 	}
 
 	async function typeLoop() {
-		// Plain local variables — NOT reactive state
 		let wordIndex = 0;
 		let isDeleting = false;
 
@@ -36,7 +33,7 @@
 			const current = words[wordIndex % words.length];
 
 			if (!isDeleting) {
-				// Typing phase — build the string char by char
+				// typing pahse: build the string char by char
 				for (let i = 0; i <= current.length; i++) {
 					displayed = current.slice(0, i);
 					await sleep(typeSpeed + (Math.random() * 40 - 20));
@@ -45,7 +42,7 @@
 				await sleep(pauseAfterType);
 				isDeleting = true;
 			} else {
-				// Deleting phase — shrink the string char by char
+				// deleting pahse: shrink the string char by char
 				for (let i = current.length; i >= 0; i--) {
 					displayed = current.slice(0, i);
 					await sleep(deleteSpeed + (Math.random() * 20 - 10));
@@ -70,6 +67,7 @@
 </span>
 
 <style>
+	/* cursor blink effect */
 	.cursor {
 		display: inline-block;
 		font-weight: 100;
