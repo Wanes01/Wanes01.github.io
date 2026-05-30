@@ -38,7 +38,7 @@
 
 	<Terminal classes="w-4/5 lg:w-1/3 md:w-2/3">
 		<TerminalLine command={'echo "This is me:"'} output="This is me:" />
-		<TerminalLine command="viu emir.webp">
+		<TerminalLine command="chafa emir.webp">
 			<img src={emir} alt="Emir" class="w-70 rounded-xl" />
 		</TerminalLine>
 	</Terminal>
