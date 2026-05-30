@@ -17,9 +17,9 @@ export default class Particle {
     // distance from the attractor, updated every frame in updatePosition
     distFromAttractor: number;
 
-    // minimum and maximum orbit radius range in pixels
-    private static readonly MIN_RAND_DIST = 100;
-    static readonly MAX_RAND_DIST = 800;
+    // the minumum distance this particle must keep from the attractor
+    // when on a stable orbit
+    minDist: number;
 
     // gravitational attraction strength
     // higher = stronger pull toward attractor
@@ -36,13 +36,14 @@ export default class Particle {
     private static readonly IMPULSE_BASE_FORCE = 1500;
 
     // each particle has a unique orbital radius drawn randomly from [MIN_RAND_DIST, MAX_RAND_DIST]
-    private readonly MIN_DIST = getRandomIntInclusive(
-        Particle.MIN_RAND_DIST, Particle.MAX_RAND_DIST);
+    //private readonly MIN_DIST = getRandomIntInclusive(
+    //Particle.MIN_RAND_DIST, Particle.MAX_RAND_DIST);
 
-    constructor(x: number, y: number, radius: number, attractorX: number, attractorY: number) {
+    constructor(x: number, y: number, radius: number, attractorX: number, attractorY: number, minDist: number) {
         this.x = x;
         this.y = y;
         this.radius = radius;
+        this.minDist = minDist;
         // pick a random orbital direction
         this.sign = Math.random() > 0.5 ? 1 : -1;
 
@@ -73,7 +74,7 @@ export default class Particle {
 
         // revisited gravitational force law.
         // the distance factor is linear and not quadratic.
-        const force = this.distFromAttractor > this.MIN_DIST
+        const force = this.distFromAttractor > this.minDist
             ? Particle.STRENGTH / this.distFromAttractor
             : -Particle.STRENGTH / (this.distFromAttractor * this.distFromAttractor);
 

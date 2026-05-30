@@ -16,15 +16,19 @@
 		ctx.scale(dpr, dpr);
 
 		// color iterpolation endpoints
-		const COLOR_FAR = { r: 142, g: 197, b: 255 };
-		const COLOR_NEAR = { r: 20, g: 71, b: 230 };
+		const COLOR_FAR = { r: 242, g: 100, b: 25 };
+		const COLOR_NEAR = { r: 0, g: 102, b: 204 };
 
 		// prevents particles from disappearing
 		const MIN_ALPHA = 80;
 
 		const MIN_RADIUS = 2;
 		const MAX_RADIUS = 3;
-		const PARTICLES_AMOUNT = 250;
+
+		// minimum and maximum orbit from attractor
+		const MIN_ORBIT = 120;
+		const MAX_ORBIT = 900;
+		const PARTICLES_AMOUNT = 200;
 
 		// maximum distance in pixels between two particles for a connection to be drawn.
 		// precomputed squared value to avoid Math.sqrt in the render loop
@@ -33,7 +37,7 @@
 
 		// probability [0,1] that any two particles will have a connection between them.
 		// applied once at initialization, not every frame.
-		const CONNECTION_PROBABILITY = 0.2;
+		const CONNECTION_PROBABILITY = 0.35;
 
 		const particles: Particle[] = [];
 
@@ -49,12 +53,14 @@
 		let imageData = ctx.createImageData(canvas.width, canvas.height);
 		let data = imageData.data;
 
+		const distStep = (MAX_ORBIT - MIN_ORBIT) / PARTICLES_AMOUNT;
 		// initializes the particles
 		for (let p = 0; p < PARTICLES_AMOUNT; p++) {
 			const radius = getRandomIntInclusive(MIN_RADIUS, MAX_RADIUS);
 			const x = getRandomIntInclusive(0, canvas.width);
 			const y = getRandomIntInclusive(0, canvas.height);
-			particles.push(new Particle(x, y, radius, attractorX, attractorY));
+			// particles get spread at different orbits
+			particles.push(new Particle(x, y, radius, attractorX, attractorY, MIN_ORBIT + p * distStep));
 		}
 
 		// pre-compute which particle pairs are connected.
@@ -80,15 +86,14 @@
 			for (const particle of particles) {
 				particle.updatePosition(attractorX, attractorY, impulse?.x, impulse?.y);
 
-				// t = 0 when particle is at MAX_RAND_DIST or beyond (light coloring)
+				// t = 0 when particle is at MAX_ORBIT or beyond (light coloring)
 				// t = 1 when particle is next to the attractor (dark coloring)
-				const t =
-					1 - Math.min(particle.distFromAttractor, Particle.MAX_RAND_DIST) / Particle.MAX_RAND_DIST;
+				const t = 1 - Math.min(particle.distFromAttractor, MAX_ORBIT) / MAX_ORBIT;
 				// interpolate alpha between distances
 				const alpha = Math.floor(MIN_ALPHA + (255 - MIN_ALPHA) * t);
-				const px = Math.round(particle.x);
-				const py = Math.round(particle.y);
-				const r = particle.radius;
+				const px = Math.round(particle.x * dpr);
+				const py = Math.round(particle.y * dpr);
+				const r = Math.round(particle.radius * dpr);
 
 				// rasterizes the circle by iterating over its bounding box
 				for (let dy = -r; dy <= r; dy++) {
@@ -147,8 +152,10 @@
 
 		// update internal canvas resolution to match the new window size
 		const handleResize = () => {
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
+			const dpr = window.devicePixelRatio || 1;
+			canvas.width = window.innerWidth * dpr;
+			canvas.height = window.innerHeight * dpr;
+			ctx.scale(dpr, dpr);
 			imageData = ctx.createImageData(canvas.width, canvas.height);
 			data = imageData.data;
 		};
