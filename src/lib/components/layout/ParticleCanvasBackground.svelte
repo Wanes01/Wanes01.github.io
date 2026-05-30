@@ -43,8 +43,8 @@
 		const particles: Particle[] = [];
 
 		// current position of the gravitational attractor (it follows the mouse)
-		let attractorX = canvas.width / 2;
-		let attractorY = canvas.height / 2;
+		let attractorX = window.innerWidth / 2;
+		let attractorY = window.innerHeight / 2;
 
 		// stores a pending click impulse to be applied on the next frame.
 		// null means no imput is pending
