@@ -10,7 +10,7 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 <ParticleCanvasBackground />
 <!-- bg-slate-50 -->
-<main class="relative z-10 h-screen font-inter text-carbon">
+<main class="relative z-10 h-screen cursor-pointer font-inter text-carbon">
 	<NavBar />
 	{@render children()}
 </main>

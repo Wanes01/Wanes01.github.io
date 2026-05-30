@@ -33,7 +33,7 @@ export default class Particle {
 
     // base force applied to all particles when the user clicks.
     // higher = stronger impulse
-    private static readonly IMPULSE_BASE_FORCE = 1500;
+    private static readonly IMPULSE_BASE_FORCE = 700;
 
     // each particle has a unique orbital radius drawn randomly from [MIN_RAND_DIST, MAX_RAND_DIST]
     //private readonly MIN_DIST = getRandomIntInclusive(

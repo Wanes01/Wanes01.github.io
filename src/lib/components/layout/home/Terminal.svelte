@@ -1,13 +1,15 @@
 <script lang="ts">
 	interface Props {
 		classes?: string;
+		htmlBind?: HTMLElement;
 		children?: import('svelte').Snippet;
 	}
 
-	let { classes = '', children }: Props = $props();
+	let { classes = '', htmlBind = $bindable(), children }: Props = $props();
 </script>
 
 <div
+	bind:this={htmlBind}
 	class="overflow-hidden rounded-xl border border-carbon/10 bg-white/90
             font-fira shadow-lg shadow-carbon/30
             backdrop-saturate-150 {classes}"
