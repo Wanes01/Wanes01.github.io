@@ -28,7 +28,8 @@
 		// minimum and maximum orbit from attractor
 		const MIN_ORBIT = 120;
 		const MAX_ORBIT = 900;
-		const PARTICLES_AMOUNT = 200;
+		// fewer particles on mobile devices
+		const PARTICLES_AMOUNT = window.innerWidth < 768 ? 80 : 200;
 
 		// maximum distance in pixels between two particles for a connection to be drawn.
 		// precomputed squared value to avoid Math.sqrt in the render loop

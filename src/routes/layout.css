@@ -1,3 +1,4 @@
+@import '@fontsource-variable/inter';
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 
@@ -7,4 +8,6 @@
     --color-ocean: #0066cc;
     --color-ash: #6c757d;
     --color-blaze: #f26419;
+
+    --font-inter: 'Inter Variable', sans-serif;
 }
