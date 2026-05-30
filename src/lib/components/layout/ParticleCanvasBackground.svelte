@@ -7,9 +7,13 @@
 	let ctx: CanvasRenderingContext2D;
 
 	onMount(() => {
+		const dpr = window.devicePixelRatio || 1;
+
 		ctx = canvas.getContext('2d')!;
-		canvas.width = window.innerWidth;
-		canvas.height = window.innerHeight;
+		canvas.width = window.innerWidth * dpr;
+		canvas.height = window.innerHeight * dpr;
+
+		ctx.scale(dpr, dpr);
 
 		// color iterpolation endpoints
 		const COLOR_FAR = { r: 142, g: 197, b: 255 };
