@@ -42,7 +42,7 @@
 			desc: `Outside of code I game, read, watch series, work out, and follow way too many rabbit holes about
 				science and tech.`,
 			img: freeTime,
-			cls: 'lg:w-70 w-90'
+			cls: 'lg:w-50 w-50'
 		}
 	];
 

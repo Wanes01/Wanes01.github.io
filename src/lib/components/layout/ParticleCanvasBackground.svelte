@@ -40,6 +40,11 @@
 		// applied once at initialization, not every frame.
 		const CONNECTION_PROBABILITY = 0.35;
 
+		// cursor attraction pulse rings amount
+		const RINGS = 3;
+		const PULSE_SPEED = 0.007;
+		const PULSE_RADIUS_FACTOR = 30;
+
 		const particles: Particle[] = [];
 
 		// current position of the gravitational attractor (it follows the mouse)
@@ -49,6 +54,9 @@
 		// stores a pending click impulse to be applied on the next frame.
 		// null means no imput is pending
 		let impulse: { x: number; y: number } | null = null;
+
+		// takes track of the current
+		let pulseTime = 0;
 
 		// drawing uses the pixel buffer, which is much faster than ctx.arc()
 		let imageData = ctx.createImageData(canvas.width, canvas.height);
@@ -141,6 +149,31 @@
 			}
 
 			ctx.stroke();
+
+			// pulse indicator, dekstop only
+			if (window.innerWidth >= 768) {
+				pulseTime = (pulseTime + PULSE_SPEED) % 1;
+
+				for (let i = 0; i < RINGS; i++) {
+					// every ring has a different phase
+					const phase = (pulseTime + i / RINGS) % 1;
+
+					const radius = (1 - phase) * PULSE_RADIUS_FACTOR;
+					const alpha = phase * 0.4;
+
+					ctx.beginPath();
+					ctx.arc(attractorX, attractorY, radius, 0, Math.PI * 2);
+					ctx.strokeStyle = `rgba(242, 100, 25, ${alpha})`;
+					ctx.lineWidth = 1;
+					ctx.stroke();
+				}
+
+				// fixed central point
+				ctx.beginPath();
+				ctx.arc(attractorX, attractorY, 3, 0, Math.PI * 2);
+				ctx.fillStyle = 'rgba(242, 100, 25, 0.8)';
+				ctx.fill();
+			}
 		};
 
 		animationId = requestAnimationFrame(loop);
