@@ -27,7 +27,7 @@
 
 		// minimum and maximum orbit from attractor
 		// values on mobile : values on desktop
-		const MIN_ORBIT = window.innerWidth < 768 ? 50 : 120;
+		const MIN_ORBIT = window.innerWidth < 768 ? 100 : 120;
 		const MAX_ORBIT = window.innerWidth < 768 ? 350 : 900;
 		const PARTICLES_AMOUNT = window.innerWidth < 768 ? 95 : 200;
 

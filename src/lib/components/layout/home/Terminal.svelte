@@ -10,8 +10,8 @@
 
 <div
 	bind:this={htmlBind}
-	class="overflow-hidden rounded-xl border border-carbon/10 bg-white/90
-            font-fira shadow-lg shadow-carbon/30
+	class="cursor-auto overflow-hidden rounded-xl border border-carbon/10 bg-white/90
+            font-fira opacity-0 shadow-lg shadow-carbon/30
             backdrop-saturate-150 {classes}"
 >
 	<!-- title bar -->

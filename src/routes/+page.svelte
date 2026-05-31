@@ -1,5 +1,11 @@
 <script>
 	import WelcomeBanner from '$lib/components/layout/home/WelcomeBanner.svelte';
+	import About from '$lib/components/layout/home/About.svelte';
 </script>
 
-<WelcomeBanner />
+<div class="flex flex-col gap-25 px-10 py-10 lg:gap-35 lg:px-50">
+	<WelcomeBanner />
+	<div class="flex flex-col lg:px-30">
+		<About />
+	</div>
+</div>
