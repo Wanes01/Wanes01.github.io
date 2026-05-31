@@ -1,4 +1,5 @@
 <script lang="ts">
+	import HomeSection from '../HomeSection.svelte';
 	import asterisk from '$lib/imgs/doodles/asterisk.svg';
 	import laurel from '$lib/imgs/doodles/laurel.svg';
 	import creating from '$lib/imgs/doodles/creating.svg';
@@ -36,7 +37,7 @@
 				containerization, simulations... I find most of it interesting, and I like that the field is
 				broad enough to never get boring.`,
 			img: arch,
-			cls: 'lg:w-90 w-90'
+			cls: 'w-full'
 		},
 		{
 			desc: `Outside of code I game, read, watch series, work out, and follow way too many rabbit holes about
@@ -70,12 +71,7 @@
 	});
 </script>
 
-<section class="flex flex-col gap-5">
-	<div class="flex flex-row items-center gap-2">
-		<img src={asterisk} alt="" class="w-10" />
-		<h2 id="about" class="cursor-default scroll-mt-16 text-3xl font-bold">About me</h2>
-	</div>
-
+<HomeSection title="About me" titleId="about">
 	<ul class="flex flex-col gap-y-10 text-lg leading-relaxed">
 		{#each descriptions as description, i}
 			<li
@@ -92,4 +88,4 @@
 			</li>
 		{/each}
 	</ul>
-</section>
+</HomeSection>
