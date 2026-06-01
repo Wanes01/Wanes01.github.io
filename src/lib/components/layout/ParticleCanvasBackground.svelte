@@ -45,6 +45,9 @@
 		const PULSE_SPEED = 0.007;
 		const PULSE_RADIUS_FACTOR = 30;
 
+		// how many times the draw function is invoked per frame
+		const BUCKET_COUNT = 16;
+
 		const particles: Particle[] = [];
 
 		// current position of the gravitational attractor (it follows the mouse)
@@ -57,10 +60,6 @@
 
 		// takes track of the current
 		let pulseTime = 0;
-
-		// drawing uses the pixel buffer, which is much faster than ctx.arc()
-		let imageData = ctx.createImageData(canvas.width, canvas.height);
-		let data = imageData.data;
 
 		const distStep = (MAX_ORBIT - MIN_ORBIT) / PARTICLES_AMOUNT;
 		// initializes the particles
@@ -86,64 +85,62 @@
 
 		let animationId: number;
 
+		// pre computers the color of each draw call
+		const bucketColors: string[] = Array.from({ length: BUCKET_COUNT }, (_, b) => {
+			const t = (b + 0.5) / BUCKET_COUNT;
+			const alpha = (MIN_ALPHA / 255 + (1 - MIN_ALPHA / 255) * t).toFixed(3);
+			const r = Math.floor(COLOR_FAR.r + (COLOR_NEAR.r - COLOR_FAR.r) * t);
+			const g = Math.floor(COLOR_FAR.g + (COLOR_NEAR.g - COLOR_FAR.g) * t);
+			const bv = Math.floor(COLOR_FAR.b + (COLOR_NEAR.b - COLOR_FAR.b) * t);
+			return `rgba(${r},${g},${bv},${alpha})`;
+		});
+
+		const colorBuckets: Particle[][] = Array.from({ length: BUCKET_COUNT }, () => []);
+
 		const loop = () => {
 			animationId = requestAnimationFrame(loop);
+			// clears the canvas for a new frame
+			ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-			// resets the pixel buffer to fully transparent every frame
-			data.fill(0);
+			// empties the color buckets without reallocating them
+			for (const bucket of colorBuckets) bucket.length = 0;
 
+			// position update andd bucket distribution
 			for (const particle of particles) {
 				particle.updatePosition(attractorX, attractorY, impulse?.x, impulse?.y);
 
-				// t = 0 when particle is at MAX_ORBIT or beyond (light coloring)
-				// t = 1 when particle is next to the attractor (dark coloring)
 				const t = 1 - Math.min(particle.distFromAttractor, MAX_ORBIT) / MAX_ORBIT;
-				// interpolate alpha between distances
-				const alpha = Math.floor(MIN_ALPHA + (255 - MIN_ALPHA) * t);
-				const px = Math.round(particle.x * dpr);
-				const py = Math.round(particle.y * dpr);
-				const r = Math.round(particle.radius * dpr);
+				const bucketIdx = Math.min(Math.floor(t * BUCKET_COUNT), BUCKET_COUNT - 1);
+				colorBuckets[bucketIdx].push(particle);
+			}
 
-				// rasterizes the circle by iterating over its bounding box
-				for (let dy = -r; dy <= r; dy++) {
-					for (let dx = -r; dx <= r; dx++) {
-						const dist = Math.sqrt(dx * dx + dy * dy);
-						// skips pixels outside the circle
-						if (dist > r) continue;
+			// max BUCKERT_COUNT draw calls for performance reason
+			// (or manual rasterization)
+			for (let b = 0; b < BUCKET_COUNT; b++) {
+				if (colorBuckets[b].length === 0) continue;
 
-						const x = px + dx;
-						const y = py + dy;
-						// skips pixels outside the canvas
-						if (x < 0 || x >= canvas.width || y < 0 || y >= canvas.height) continue;
+				ctx.fillStyle = bucketColors[b];
+				ctx.beginPath();
 
-						// anti-alising: smoothly fade the particles outermost pixels
-						const edgeAlpha = dist > r - 1 ? 1 - (dist - (r - 1)) : 1;
-						const i = (y * canvas.width + x) * 4;
-
-						// interpolates the RGB color
-						data[i] = Math.floor(COLOR_FAR.r + (COLOR_NEAR.r - COLOR_FAR.r) * t);
-						data[i + 1] = Math.floor(COLOR_FAR.g + (COLOR_NEAR.g - COLOR_FAR.g) * t);
-						data[i + 2] = Math.floor(COLOR_FAR.b + (COLOR_NEAR.b - COLOR_FAR.b) * t);
-						data[i + 3] = Math.floor(alpha * edgeAlpha);
-					}
+				for (const p of colorBuckets[b]) {
+					ctx.moveTo(p.x + p.radius, p.y);
+					ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
 				}
+
+				ctx.fill();
 			}
 
 			impulse = null;
-			ctx.putImageData(imageData, 0, 0);
 
-			// draws connections on top of the pixel buffer
 			ctx.strokeStyle = 'rgba(20, 71, 230, 0.3)';
 			ctx.lineWidth = 0.5;
 			ctx.beginPath();
 
+			// draws the precomputed connections
 			for (const [i, j] of connections) {
 				const dx = particles[i].x - particles[j].x;
 				const dy = particles[i].y - particles[j].y;
-
-				// only draw if withing the range
 				if (dx * dx + dy * dy > MAX_CONN_DIST_SQ) continue;
-
 				ctx.moveTo(particles[i].x, particles[i].y);
 				ctx.lineTo(particles[j].x, particles[j].y);
 			}
@@ -185,13 +182,15 @@
 		};
 
 		// update internal canvas resolution to match the new window size
+		let resizeTimeout: ReturnType<typeof setTimeout>;
 		const handleResize = () => {
-			const dpr = window.devicePixelRatio || 1;
-			canvas.width = window.innerWidth * dpr;
-			canvas.height = window.innerHeight * dpr;
-			ctx.scale(dpr, dpr);
-			imageData = ctx.createImageData(canvas.width, canvas.height);
-			data = imageData.data;
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(() => {
+				const dpr = window.devicePixelRatio || 1;
+				canvas.width = window.innerWidth * dpr;
+				canvas.height = window.innerHeight * dpr;
+				ctx.scale(dpr, dpr);
+			}, 150);
 		};
 
 		// store the click position as a pending impulse

@@ -23,7 +23,7 @@ export default class Particle {
 
     // gravitational attraction strength
     // higher = stronger pull toward attractor
-    private static readonly STRENGTH = 10;
+    private static readonly STRENGTH = 5.5;
 
     // velocity multiplier applied every frame (0-1). values below 1 simulate drag
     private static readonly DAMPING = 0.99;
@@ -33,7 +33,7 @@ export default class Particle {
 
     // base force applied to all particles when the user clicks.
     // higher = stronger impulse
-    private static readonly IMPULSE_BASE_FORCE = 700;
+    private static readonly IMPULSE_BASE_FORCE = 450;
 
     // each particle has a unique orbital radius drawn randomly from [MIN_RAND_DIST, MAX_RAND_DIST]
     //private readonly MIN_DIST = getRandomIntInclusive(
