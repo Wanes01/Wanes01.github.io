@@ -29,7 +29,7 @@
 		// values on mobile : values on desktop
 		const MIN_ORBIT = window.innerWidth < 768 ? 100 : 120;
 		const MAX_ORBIT = window.innerWidth < 768 ? 350 : 900;
-		const PARTICLES_AMOUNT = window.innerWidth < 768 ? 95 : 200;
+		const PARTICLES_AMOUNT = window.innerWidth < 768 ? 75 : 200;
 
 		// maximum distance in pixels between two particles for a connection to be drawn.
 		// precomputed squared value to avoid Math.sqrt in the render loop
@@ -190,7 +190,7 @@
 				canvas.width = window.innerWidth * dpr;
 				canvas.height = window.innerHeight * dpr;
 				ctx.scale(dpr, dpr);
-			}, 150);
+			}, 100);
 		};
 
 		// store the click position as a pending impulse
