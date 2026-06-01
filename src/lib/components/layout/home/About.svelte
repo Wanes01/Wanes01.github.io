@@ -37,13 +37,13 @@
 				containerization, simulations... I find most of it interesting, and I like that the field is
 				broad enough to never get boring.`,
 			img: arch,
-			cls: 'w-full'
+			cls: 'w-full lg:w-130'
 		},
 		{
 			desc: `Outside of code I game, read, watch series, work out, and follow way too many rabbit holes about
 				science and tech.`,
 			img: freeTime,
-			cls: 'lg:w-45 w-45'
+			cls: 'lg:w-45 w-40'
 		}
 	];
 

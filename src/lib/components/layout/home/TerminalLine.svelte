@@ -17,9 +17,9 @@
 <!-- prompt line -->
 <div class="flex flex-wrap items-baseline gap-x-1">
 	<span class="font-medium text-ocean">{user}@{host}</span>
-	<span class="text-carbon/30">:</span>
+	<span class="text-carbon/50">:</span>
 	<span class="font-medium text-blaze">{path}</span>
-	<span class="text-carbon/40">$</span>
+	<span class="text-carbon/50">$</span>
 	<span class="ml-1 text-carbon">{command}</span>
 </div>
 

@@ -60,7 +60,7 @@
 	</div>
 
 	<!-- personal image in terminal emulator -->
-	<Terminal bind:htmlBind={terminal} classes="w-full lg:w-5/12 md:w-2/3">
+	<Terminal bind:htmlBind={terminal} classes="w-full lg:w-5/12">
 		<TerminalLine command={'echo "This is me:"'} output="This is me:" />
 		<TerminalLine command="chafa emir.webp">
 			<img src={emir} alt="Emir" class="w-70 rounded-xl" />

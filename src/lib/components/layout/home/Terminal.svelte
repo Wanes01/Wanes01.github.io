@@ -1,11 +1,12 @@
 <script lang="ts">
 	interface Props {
+		title?: string;
 		classes?: string;
 		htmlBind?: HTMLElement;
 		children?: import('svelte').Snippet;
 	}
 
-	let { classes = '', htmlBind = $bindable(), children }: Props = $props();
+	let { title = '~ : bash', classes = '', htmlBind = $bindable(), children }: Props = $props();
 </script>
 
 <div
@@ -21,7 +22,7 @@
 		<p
 			class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[0.75rem] tracking-wide text-ash"
 		>
-			~ : bash
+			{title}
 		</p>
 
 		<div class="flex flex-row gap-1.5">
