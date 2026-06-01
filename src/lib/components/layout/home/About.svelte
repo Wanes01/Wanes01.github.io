@@ -15,7 +15,7 @@
 				Computer Science and Engineering. I'll defend my thesis in October and finally call it
 				done.`,
 			img: laurel,
-			cls: 'lg:w-50 w-40'
+			cls: 'lg:w-50 w-50'
 		},
 		{
 			desc: `I've always been driven by a simple curiosity: understanding how things work, and then
@@ -43,7 +43,7 @@
 			desc: `Outside of code I game, read, watch series, work out, and follow way too many rabbit holes about
 				science and tech.`,
 			img: freeTime,
-			cls: 'lg:w-50 w-50'
+			cls: 'lg:w-45 w-45'
 		}
 	];
 

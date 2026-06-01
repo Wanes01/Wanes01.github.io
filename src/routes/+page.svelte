@@ -9,5 +9,6 @@
 	<div class="flex flex-col gap-15 lg:px-30">
 		<About />
 		<Experience />
+		<About />
 	</div>
 </div>
