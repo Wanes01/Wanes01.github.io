@@ -4,16 +4,34 @@
 	import HomeSection from '../HomeSection.svelte';
 	import Terminal from './Terminal.svelte';
 	import TerminalLine from './TerminalLine.svelte';
-	import { animate, inView } from 'motion';
+	import { animate, inView, stagger } from 'motion';
 
 	let terminal = $state<HTMLElement>();
 	let isMobile = $state(false);
 
 	onMount(() => {
-		inView(
+		const stopInView = inView(
 			terminal,
 			() => {
+				// Animazione di ingresso del terminale
 				animate(terminal, { opacity: [0, 1], y: [30, 0] }, { duration: 0.5, ease: 'easeOut' });
+
+				if (terminal) {
+					const typingElements = terminal.querySelectorAll('.typing-element');
+					animate(
+						typingElements,
+						{
+							opacity: [0, 1],
+							height: ['0px', 'auto'],
+							clipPath: ['inset(0 100% 0 0)', 'inset(0 0 0 0)']
+						},
+						{
+							delay: stagger(0.1, { startDelay: 0.5 }),
+							duration: 0.2,
+							ease: 'linear'
+						}
+					);
+				}
 			},
 			{ amount: 0.3 }
 		);
@@ -26,7 +44,10 @@
 		};
 
 		mediaQuery.addEventListener('change', listener);
-		return () => mediaQuery.removeEventListener('change', listener);
+		return () => {
+			stopInView();
+			mediaQuery.removeEventListener('change', listener);
+		};
 	});
 </script>
 
@@ -40,11 +61,17 @@
 			>
 				<ul class="flex flex-col gap-1 lg:grid lg:grid-cols-2">
 					{#each section.entries as skill}
-						<li class="grid grid-cols-5 items-center lg:grid-cols-12">
+						<li
+							class="typing-element grid h-0 min-h-0 grid-cols-5 items-center overflow-hidden opacity-0 lg:grid-cols-12"
+						>
 							<p class="col-span-4 text-nowrap lg:col-span-6">- {skill.name}</p>
 							<img
 								src={`/skills/${skill.icon}.png`}
 								alt=""
+								width="24"
+								height="24"
+								loading="lazy"
+								decoding="async"
 								class="w-6 [image-rendering:pixelated]"
 							/>
 						</li>

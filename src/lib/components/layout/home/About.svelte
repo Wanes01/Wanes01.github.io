@@ -1,6 +1,5 @@
 <script lang="ts">
 	import HomeSection from '../HomeSection.svelte';
-	import asterisk from '$lib/imgs/doodles/asterisk.svg';
 	import laurel from '$lib/imgs/doodles/laurel.svg';
 	import creating from '$lib/imgs/doodles/creating.svg';
 	import world from '$lib/imgs/doodles/world.svg';

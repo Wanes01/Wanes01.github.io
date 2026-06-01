@@ -25,7 +25,11 @@
 <section class="flex flex-col gap-5">
 	<div class="my-5 flex flex-row items-center gap-2">
 		<img use:fadeInUp={0.1} src={asterisk} alt="" class="w-10" />
-		<h2 use:fadeInUp={0.3} id={titleId} class="cursor-default scroll-mt-16 text-3xl font-bold">
+		<h2
+			use:fadeInUp={0.3}
+			id={titleId}
+			class="cursor-default scroll-mt-68 text-3xl font-bold lg:scroll-mt-16"
+		>
 			{title}
 		</h2>
 	</div>
