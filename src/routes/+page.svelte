@@ -6,7 +6,7 @@
 
 <div class="flex flex-col gap-25 px-10 py-10 lg:gap-35 lg:px-50">
 	<WelcomeBanner />
-	<div class="flex flex-col gap-15 lg:px-30">
+	<div class="flex flex-col gap-10 lg:px-30">
 		<About />
 		<Experience />
 		<About />

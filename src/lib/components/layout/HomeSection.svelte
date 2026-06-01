@@ -23,7 +23,7 @@
 </script>
 
 <section class="flex flex-col gap-5">
-	<div class="flex flex-row items-center gap-2">
+	<div class="my-5 flex flex-row items-center gap-2">
 		<img use:fadeInUp={0.1} src={asterisk} alt="" class="w-10" />
 		<h2 use:fadeInUp={0.3} id={titleId} class="cursor-default scroll-mt-16 text-3xl font-bold">
 			{title}

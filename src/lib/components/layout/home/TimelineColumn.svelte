@@ -24,27 +24,38 @@
 	}
 
 	onMount(() => {
+		let ticking = false;
+
 		const onScroll = () => {
-			if (!line) return;
+			if (ticking) return;
+			ticking = true;
 
-			const lineRect = line.getBoundingClientRect();
-			const viewportMid = window.innerHeight / 2;
-			const relativeY = viewportMid - lineRect.top;
-
-			blazeY = Math.max(0, Math.min(lineRect.height, relativeY));
-
-			const absoluteBlazeY = lineRect.top + blazeY;
-			const next = new Set<number>();
-
-			nodeEls.forEach((el, i) => {
-				if (!el) return;
-				const nr = el.getBoundingClientRect();
-				if (nr.top + nr.height / 2 <= absoluteBlazeY) {
-					next.add(i);
+			requestAnimationFrame(() => {
+				if (!line) {
+					ticking = false;
+					return;
 				}
-			});
 
-			activeNodes = next;
+				// visualViewport è stabile su mobile (non cambia con le barre del browser)
+				const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+				const lineRect = line.getBoundingClientRect();
+				const viewportMid = viewportHeight / 2;
+				const relativeY = viewportMid - lineRect.top;
+
+				blazeY = Math.max(0, Math.min(lineRect.height, relativeY));
+
+				const absoluteBlazeY = lineRect.top + blazeY;
+				const next = new Set<number>();
+
+				nodeEls.forEach((el, i) => {
+					if (!el) return;
+					const nr = el.getBoundingClientRect();
+					if (nr.top + nr.height / 2 <= absoluteBlazeY) next.add(i);
+				});
+
+				activeNodes = next;
+				ticking = false;
+			});
 		};
 
 		inView(
@@ -67,18 +78,26 @@
 </script>
 
 <div bind:this={container} class="flex h-full flex-col opacity-0">
-	<p class="mb-6 font-fira text-lg text-ash underline underline-offset-4">{title}</p>
+	<p class="mb-6 font-fira text-lg text-slate-500 underline underline-offset-4">{title}</p>
 
 	<div
 		class="relative flex flex-1 flex-col gap-12 py-2 {justifyEvenly
 			? 'justify-evenly'
 			: 'justify-between'}"
 	>
+		<!-- timeline -->
 		<div
 			bind:this={line}
 			class="absolute top-0 left-1.75 h-full w-0.5 rounded-full bg-ocean/40"
 		></div>
 
+		<!-- timeline surpassed by the pointer -->
+		<div
+			class="absolute top-0 left-1.75 w-0.5 rounded-full bg-orange-300 transition-none"
+			style="height: {blazeY}px"
+		></div>
+
+		<!-- blaze pointer -->
 		<div
 			class="pointer-events-none absolute left-0.75 z-10 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-blaze"
 			style="top: {blazeY}px"
@@ -95,11 +114,11 @@
 						: 'border-slate-500 bg-slate-200'}"
 				></div>
 
-				<div class="flex cursor-default flex-col gap-1 bg-slate-50/60">
-					<span class="font-fira text-ash">{item.year}</span>
+				<p class="flex cursor-default flex-col gap-1 bg-slate-50/70">
+					<span class="font-fira text-slate-500">{item.year}</span>
 					<span class="text-base font-semibold text-carbon">{item.title}</span>
-					<span class="text-sm leading-relaxed text-ash">{item.desc}</span>
-				</div>
+					<span class="text-sm leading-relaxed text-slate-600">{item.desc}</span>
+				</p>
 			</div>
 		{/each}
 	</div>
