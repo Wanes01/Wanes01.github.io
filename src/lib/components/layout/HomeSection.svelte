@@ -5,10 +5,11 @@
 	interface Props {
 		title: string;
 		titleId: string;
+		doodle?: string;
 		children?: import('svelte').Snippet;
 	}
 
-	let { title, titleId, children }: Props = $props();
+	let { title, doodle = asterisk, titleId, children }: Props = $props();
 
 	const fadeInUp = (el: HTMLElement, delay = 0) => {
 		el.style.opacity = '0';
@@ -23,8 +24,8 @@
 </script>
 
 <section class="flex flex-col gap-5">
-	<div class="my-5 flex flex-row items-center gap-2">
-		<img use:fadeInUp={0.1} src={asterisk} alt="" class="w-10" />
+	<div class="my-5 flex flex-row items-center gap-3">
+		<img use:fadeInUp={0.1} src={doodle} alt="" class="w-8" />
 		<h2
 			use:fadeInUp={0.3}
 			id={titleId}

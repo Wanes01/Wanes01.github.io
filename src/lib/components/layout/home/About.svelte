@@ -1,5 +1,6 @@
 <script lang="ts">
 	import HomeSection from '../HomeSection.svelte';
+	import aboutDoodle from '$lib/imgs/doodles/about.svg';
 	import { descriptions } from '$lib/data/about';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';
@@ -28,8 +29,8 @@
 	});
 </script>
 
-<HomeSection title="About me" titleId="about">
-	<ul class="flex flex-col gap-y-10 text-lg leading-relaxed">
+<HomeSection title="About me" titleId="about" doodle={aboutDoodle}>
+	<ul class="flex flex-col gap-y-10 text-[1.11rem] leading-relaxed">
 		{#each descriptions as description, i}
 			<li
 				class="flex flex-col items-center justify-between gap-8 lg:flex-row {i % 2 == 1

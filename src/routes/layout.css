@@ -1,7 +1,6 @@
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/fira-code';
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
 
 @theme {
     --color-paper: #f4f4f6;

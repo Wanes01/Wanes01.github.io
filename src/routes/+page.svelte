@@ -4,14 +4,16 @@
 	import Experience from '$lib/components/layout/home/Experience.svelte';
 	import Skills from '$lib/components/layout/home/Skills.svelte';
 	import Projects from '$lib/components/layout/home/Projects.svelte';
+	import Contact from '$lib/components/layout/home/Contact.svelte';
 </script>
 
 <div class="flex flex-col items-center gap-25 px-10 py-10 lg:gap-35 lg:px-50">
 	<WelcomeBanner />
-	<div class="flex flex-col gap-10 lg:w-7/8">
+	<div class="flex flex-col gap-10 lg:w-7/8 lg:gap-25">
 		<About />
 		<Experience />
 		<Skills />
 		<Projects />
+		<Contact />
 	</div>
 </div>

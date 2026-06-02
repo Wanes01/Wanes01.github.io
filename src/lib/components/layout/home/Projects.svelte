@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HomeSection from '../HomeSection.svelte';
 	import laptopFrame from '$lib/imgs/misc/laptop_frame.png';
+	import projectDoodle from '$lib/imgs/doodles/projects.svg';
 	import { projects } from '$lib/data/projects';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';
@@ -66,7 +67,7 @@
 	});
 </script>
 
-<HomeSection title="Projects" titleId="projects">
+<HomeSection title="Projects" titleId="projects" doodle={projectDoodle}>
 	<div bind:this={container} class="flex flex-col items-center gap-8 opacity-0 lg:flex-row">
 		<div class="relative w-full lg:basis-2/3">
 			<div class="lg:overflow-visible">
@@ -76,7 +77,7 @@
 					class="block w-full origin-top scale-[1.25] md:scale-[1.1] lg:scale-100"
 				/>
 				<!-- laptop screen -->
-				<a href={project.link || '#projects'}>
+				<a href={project.link || '#projects'} target="_blank" class="cursor-alias">
 					<div class="screen-overlay absolute overflow-hidden bg-[#303030]">
 						<!-- image A -->
 						<img
@@ -99,11 +100,17 @@
 
 		<!-- project info -->
 		<div class="info flex w-full cursor-default flex-col gap-6 bg-slate-50/60 lg:basis-1/3">
-			<div bind:this={infoEl} class="flex min-h-110 flex-col gap-2 lg:min-h-0">
-				<p class="font-fira text-sm text-slate-500 underline underline-offset-4">
+			<div bind:this={infoEl} class="flex min-h-85 flex-col gap-2 md:min-h-0 lg:min-h-0">
+				<p class="font-fira text-sm text-slate-500">
 					{String(projectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
 				</p>
-				<h3 class="text-2xl font-bold text-carbon">{project.title}</h3>
+				<a href={project.link} target="_blank">
+					<h3
+						class="inline text-2xl font-bold text-ocean underline underline-offset-4 transition-colors hover:text-blaze"
+					>
+						{project.title}
+					</h3>
+				</a>
 				<p class="text-lg leading-relaxed">{project.desc}</p>
 				<p class="font-fira text-sm text-slate-500">some of the skills used:</p>
 				<ul class="flex flex-row flex-wrap gap-2">

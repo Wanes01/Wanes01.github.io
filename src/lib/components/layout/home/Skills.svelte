@@ -51,32 +51,32 @@
 </script>
 
 <HomeSection title="Skills" titleId="skills">
-	<Terminal bind:htmlBind={terminal} title="~/skills : bash">
-		{#each skillSections as section}
-			<TerminalLine
-				path="~/skills"
-				command={`cat ${section.section}.txt`}
-				host={isMobile ? '_' : 'desktop'}
-			>
-				<ul class="flex flex-col gap-1 lg:grid lg:grid-cols-2">
-					{#each section.entries as skill}
-						<li
-							class="typing-element grid grid-cols-5 items-center overflow-hidden opacity-0 lg:grid-cols-12"
-						>
-							<p class="col-span-4 text-nowrap lg:col-span-6">=> {skill.name}</p>
-							<img
-								src={`/skills/${skill.icon}.png`}
-								alt=""
-								width="24"
-								height="24"
-								loading="lazy"
-								decoding="async"
-								class="w-6 [image-rendering:pixelated]"
-							/>
-						</li>
-					{/each}
-				</ul>
-			</TerminalLine>
-		{/each}
-	</Terminal>
+	<div class="flex flex-row justify-center">
+		<Terminal bind:htmlBind={terminal} title="~/skills : bash" classes="w-full lg:w-3/4">
+			{#each skillSections as section}
+				<TerminalLine
+					path="~/skills"
+					command={`cat ${section.section}.txt`}
+					host={isMobile ? '_' : 'desktop'}
+				>
+					<ul class="flex flex-col gap-1 lg:grid lg:grid-cols-[1fr_2fr] lg:gap-x-8">
+						{#each section.entries as skill}
+							<li class="typing-element flex flex-row items-center gap-3 overflow-hidden opacity-0">
+								<p>* {skill.name}</p>
+								<img
+									src={`/skills/${skill.icon}.png`}
+									alt=""
+									width="24"
+									height="24"
+									loading="lazy"
+									decoding="async"
+									class="w-6 [image-rendering:pixelated]"
+								/>
+							</li>
+						{/each}
+					</ul>
+				</TerminalLine>
+			{/each}
+		</Terminal>
+	</div>
 </HomeSection>

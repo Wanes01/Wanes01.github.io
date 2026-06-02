@@ -1,5 +1,6 @@
 <script lang="ts">
 	import HomeSection from '../HomeSection.svelte';
+	import exp from '$lib/imgs/doodles/exp.svg';
 	import { onMount } from 'svelte';
 	import { education, work, allEvents } from '$lib/data/experience';
 	import workIcon from '$lib/imgs/icons/work.svg';
@@ -83,7 +84,7 @@
 	});
 </script>
 
-<HomeSection title="Education & Experience" titleId="experience">
+<HomeSection title="Education & Experience" titleId="experience" doodle={exp}>
 	<div bind:this={container} class="w-full">
 		<!-- desktop version (two distinct lines) -->
 		<div class="hidden lg:grid lg:grid-cols-2 lg:gap-16">
