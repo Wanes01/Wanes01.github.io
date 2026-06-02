@@ -1,4 +1,4 @@
-interface Skill {
+export interface Skill {
     name: string,
     icon: string
 }
@@ -53,7 +53,12 @@ export const skillSections: SkillSection[] = [
             { name: 'Docker compose', icon: 'dockercompose' },
             { name: 'git', icon: 'git' },
             { name: 'Linux', icon: 'linux' },
+            { name: 'Android', icon: 'android' },
             { name: 'TPC/IP protocols & concepts', icon: 'networking' },
         ]
     }
 ]
+
+export const skills: Record<string, Skill> = Object.fromEntries(
+    skillSections.flatMap(s => s.entries.map(e => [e.icon, e]))
+)

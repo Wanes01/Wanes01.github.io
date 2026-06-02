@@ -6,9 +6,9 @@
 	import Projects from '$lib/components/layout/home/Projects.svelte';
 </script>
 
-<div class="flex flex-col gap-25 px-10 py-10 lg:gap-35 lg:px-50">
+<div class="flex flex-col items-center gap-25 px-10 py-10 lg:gap-35 lg:px-50">
 	<WelcomeBanner />
-	<div class="flex flex-col gap-10 lg:px-30">
+	<div class="flex flex-col gap-10 lg:w-7/8">
 		<About />
 		<Experience />
 		<Skills />

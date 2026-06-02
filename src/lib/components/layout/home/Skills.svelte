@@ -22,7 +22,6 @@
 						typingElements,
 						{
 							opacity: [0, 1],
-							height: ['0px', 'auto'],
 							clipPath: ['inset(0 100% 0 0)', 'inset(0 0 0 0)']
 						},
 						{
@@ -62,7 +61,7 @@
 				<ul class="flex flex-col gap-1 lg:grid lg:grid-cols-2">
 					{#each section.entries as skill}
 						<li
-							class="typing-element grid h-0 min-h-0 grid-cols-5 items-center overflow-hidden opacity-0 lg:grid-cols-12"
+							class="typing-element grid grid-cols-5 items-center overflow-hidden opacity-0 lg:grid-cols-12"
 						>
 							<p class="col-span-4 text-nowrap lg:col-span-6">- {skill.name}</p>
 							<img
