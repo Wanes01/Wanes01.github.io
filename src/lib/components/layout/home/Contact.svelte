@@ -18,7 +18,21 @@
 	let form = $state<HTMLFormElement>();
 	let resultTerminalLine = $state<HTMLElement>();
 
-	let resultSuccess = $state<boolean | undefined>(undefined);
+	let resultStatus = $state<'processing' | 'success' | 'error' | undefined>(undefined);
+
+	// color of the result. Defaults if the message is getting processed.
+	let resultColor = $derived.by(() => {
+		if (resultStatus === 'processing') return '';
+		return resultStatus === 'success' ? 'text-green-700' : 'text-red-700';
+	});
+
+	// the result message
+	let resultShownMessage = $derived.by(() => {
+		if (resultStatus === 'processing') return 'Sending your message, please wait...';
+		return resultStatus === 'success'
+			? 'The message was sent successfully :D'
+			: 'Something went wrong while sending the message D:';
+	});
 
 	onMount(() => {
 		const elementsToAnimate = [contactList, formTerminal];
@@ -39,7 +53,7 @@
 
 		// result message showing up
 		$effect(() => {
-			if (resultSuccess !== undefined && resultTerminalLine) {
+			if (resultStatus !== undefined && resultTerminalLine) {
 				animate(
 					resultTerminalLine,
 					{ opacity: [0, 1], y: [10, 0] },
@@ -48,12 +62,15 @@
 			}
 		});
 
+		console.log(form);
+
 		// send the message and shows the result to the user
 		form?.addEventListener('submit', (e) => {
 			e.preventDefault();
 			const formData = new FormData(form);
 			const object = Object.fromEntries(formData);
 			const json = JSON.stringify(object);
+			resultStatus = 'processing';
 
 			fetch(WEB3FORMS_ENDPOINT, {
 				method: 'POST',
@@ -63,8 +80,8 @@
 				},
 				body: json
 			})
-				.then(async (response) => (resultSuccess = response.status == 200))
-				.catch((error) => (resultSuccess = false))
+				.then(async (response) => (resultStatus = response.status == 200 ? 'success' : 'error'))
+				.catch((error) => (resultStatus = 'error'))
 				.then(() => form?.reset());
 		});
 	});
@@ -181,13 +198,11 @@
 						/>
 					</form>
 				</TerminalLine>
-				{#if resultSuccess != undefined}
+				{#if resultStatus != undefined}
 					<div class="mt-5" bind:this={resultTerminalLine}>
 						<TerminalLine command="./print_message_result.sh">
-							<p class={resultSuccess ? 'text-green-700' : 'text-red-700'}>
-								>>> {resultSuccess
-									? 'The message was sent successfully :D'
-									: 'Something went wrong while sending the message D:'}
+							<p class={resultColor}>
+								>>> {resultShownMessage}
 							</p>
 						</TerminalLine>
 					</div>
