@@ -15,6 +15,10 @@
 
 	let contactList = $state<HTMLElement>();
 	let formTerminal = $state<HTMLElement>();
+	let form = $state<HTMLFormElement>();
+	let resultTerminalLine = $state<HTMLElement>();
+
+	let resultSuccess = $state<boolean | undefined>(undefined);
 
 	onMount(() => {
 		const elementsToAnimate = [contactList, formTerminal];
@@ -31,6 +35,37 @@
 				},
 				{ amount: 0.3 }
 			);
+		});
+
+		// result message showing up
+		$effect(() => {
+			if (resultSuccess !== undefined && resultTerminalLine) {
+				animate(
+					resultTerminalLine,
+					{ opacity: [0, 1], y: [10, 0] },
+					{ duration: 0.3, ease: 'easeOut' }
+				);
+			}
+		});
+
+		// send the message and shows the result to the user
+		form?.addEventListener('submit', (e) => {
+			e.preventDefault();
+			const formData = new FormData(form);
+			const object = Object.fromEntries(formData);
+			const json = JSON.stringify(object);
+
+			fetch(WEB3FORMS_ENDPOINT, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json'
+				},
+				body: json
+			})
+				.then(async (response) => (resultSuccess = response.status == 200))
+				.catch((error) => (resultSuccess = false))
+				.then(() => form?.reset());
 		});
 	});
 </script>
@@ -82,6 +117,7 @@
 			<Terminal bind:htmlBind={formTerminal} title="send me an email!" classes="w-full">
 				<TerminalLine command="./send_message_to_emir.sh" user="visitor" host="pc">
 					<form
+						bind:this={form}
 						action={WEB3FORMS_ENDPOINT}
 						method="POST"
 						class="flex flex-col gap-2 bg-slate-50/50"
@@ -145,6 +181,17 @@
 						/>
 					</form>
 				</TerminalLine>
+				{#if resultSuccess != undefined}
+					<div class="mt-5" bind:this={resultTerminalLine}>
+						<TerminalLine command="./print_message_result.sh">
+							<p class={resultSuccess ? 'text-green-700' : 'text-red-700'}>
+								>>> {resultSuccess
+									? 'The message was sent successfully :D'
+									: 'Something went wrong while sending the message D:'}
+							</p>
+						</TerminalLine>
+					</div>
+				{/if}
 			</Terminal>
 		</div>
 	</div>
