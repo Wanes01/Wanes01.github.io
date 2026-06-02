@@ -63,7 +63,7 @@
 						<li
 							class="typing-element grid grid-cols-5 items-center overflow-hidden opacity-0 lg:grid-cols-12"
 						>
-							<p class="col-span-4 text-nowrap lg:col-span-6">- {skill.name}</p>
+							<p class="col-span-4 text-nowrap lg:col-span-6">=> {skill.name}</p>
 							<img
 								src={`/skills/${skill.icon}.png`}
 								alt=""

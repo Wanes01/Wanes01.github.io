@@ -16,6 +16,8 @@
 	let imgAIndex = $state(0);
 	let imgBIndex = $state(1);
 
+	let infoEl = $state<HTMLElement>();
+
 	let aIsTop = $state(true); // if A is on top of image B
 
 	$effect(() => {
@@ -33,17 +35,20 @@
 				if (imgB) animate(imgB, { opacity: [1, 0] }, { duration: 0.6, ease: 'easeInOut' });
 			}
 
-			aIsTop = !aIsTop;
-			projectIndex = nextIndex;
+			if (infoEl) {
+				animate(infoEl, { opacity: 0, x: -20 }, { duration: 0.2, ease: 'easeIn' }).then(() => {
+					projectIndex = nextIndex;
+					animate(infoEl!, { opacity: [0, 1], x: [40, 0] }, { duration: 0.4, ease: 'easeOut' });
+				});
+			} else {
+				projectIndex = nextIndex;
+			}
 
-			console.log(window.visualViewport?.width);
+			aIsTop = !aIsTop;
 		}, NEXT_PROJECT_DELAY);
+
 		return () => clearInterval(interval);
 	});
-
-	function slideIn(el: HTMLElement) {
-		animate(el, { opacity: [0, 1], x: [40, 0] }, { duration: 0.4, ease: 'easeOut' });
-	}
 
 	onMount(() => {
 		if (!container) return;
@@ -93,45 +98,21 @@
 		</div>
 
 		<!-- project info -->
-		<div
-			class="mt-14 flex w-full cursor-default flex-col gap-6 bg-slate-50/60 p-4 md:mt-5 lg:basis-1/3"
-		>
-			<div class="flex flex-col gap-2">
-				<!-- index -->
+		<div class="info flex w-full cursor-default flex-col gap-6 bg-slate-50/60 lg:basis-1/3">
+			<div bind:this={infoEl} class="flex min-h-110 flex-col gap-2 lg:min-h-0">
 				<p class="font-fira text-sm text-slate-500 underline underline-offset-4">
 					{String(projectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
 				</p>
-				<!-- title -->
-				<div class="relative h-9">
-					{#key projectIndex}
-						<h3 use:slideIn class="absolute text-2xl font-bold text-carbon">
-							{project.title}
-						</h3>
-					{/key}
-				</div>
-			</div>
-			<!-- description -->
-			<div class="relative h-40">
-				{#key projectIndex}
-					<p use:slideIn class="absolute leading-relaxed">
-						{project.desc}
-					</p>
-				{/key}
-			</div>
-			<!-- used skills -->
-			<div class="flex flex-col gap-3">
+				<h3 class="text-2xl font-bold text-carbon">{project.title}</h3>
+				<p class="text-lg leading-relaxed">{project.desc}</p>
 				<p class="font-fira text-sm text-slate-500">some of the skills used:</p>
-				<div class="relative h-12">
-					{#key projectIndex}
-						<ul use:slideIn class="absolute flex flex-row flex-wrap gap-2">
-							{#each project.skills as skill}
-								<li class="rounded-xl bg-white p-1.5 shadow shadow-slate-200">
-									<img src={`/skills/${skill.icon}.png`} alt={skill.name} class="h-8 lg:h-7" />
-								</li>
-							{/each}
-						</ul>
-					{/key}
-				</div>
+				<ul class="flex flex-row flex-wrap gap-2">
+					{#each project.skills as skill}
+						<li class="rounded-xl bg-white p-1.5 shadow shadow-slate-200">
+							<img src={`/skills/${skill.icon}.png`} alt={skill.name} class="h-8 lg:h-7" />
+						</li>
+					{/each}
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -144,6 +125,10 @@
 		left: -3.2%;
 		width: 106.5%;
 		height: 111%;
+	}
+
+	.info {
+		margin-top: clamp(0px, 15vw, 5rem);
 	}
 
 	/* laptop screen fit on tablets */
@@ -163,6 +148,10 @@
 			left: 7.5%;
 			width: 85%;
 			height: 89%;
+		}
+
+		.info {
+			margin-top: 0;
 		}
 	}
 </style>
