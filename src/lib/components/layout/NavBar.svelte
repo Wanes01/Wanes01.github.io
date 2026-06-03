@@ -14,21 +14,33 @@
 <nav class="sticky top-0 z-50 border-b border-slate-300 bg-slate-50 px-4 py-3">
 	<div class="flex flex-row items-center justify-between">
 		<div class="flex flex-row items-center gap-4">
-			<Toggle
-				type="icon"
-				a={moon}
-				b={sun}
-				ariaLabel="Toggle theme"
-				onToggle={(isDark) => document.documentElement.classList.toggle('dark', isDark)}
-			/>
-
-			<Toggle
-				type="text"
-				a="EN"
-				b="IT"
-				ariaLabel="Toggle language"
-				onToggle={(isIt) => setLocale(isIt ? 'it' : 'en')}
-			/>
+			<div class="flex flex-row items-center gap-2">
+				<p class="font-fira text-sm text-ash">language</p>
+				<Toggle ariaLabel="Toggle language" onToggle={(isIt) => setLocale(isIt ? 'it' : 'en')}>
+					{#snippet a()}
+						<p>en</p>
+					{/snippet}
+					{#snippet b()}
+						<p>it</p>
+					{/snippet}
+				</Toggle>
+			</div>
+			<dir class="flex flex-row items-center gap-2">
+				<p class="font-fira text-sm text-ash">theme</p>
+				<Toggle
+					ariaLabel="Toggle theme"
+					onToggle={(isDark) => document.documentElement.classList.toggle('dark', isDark)}
+				>
+					{#snippet a()}
+						<div
+							class="h-full w-full border border-slate-400 bg-linear-to-br from-slate-200 to-slate-400"
+						></div>
+					{/snippet}
+					{#snippet b()}
+						<p></p>
+					{/snippet}
+				</Toggle>
+			</dir>
 		</div>
 
 		<div class="flex flex-row items-center">
