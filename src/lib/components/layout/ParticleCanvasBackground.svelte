@@ -3,6 +3,8 @@
 	import { getRandomIntInclusive } from '$lib/utility/utils';
 	import { onMount } from 'svelte';
 
+	let { dark } = $props();
+
 	let canvas: HTMLCanvasElement;
 	let ctx: CanvasRenderingContext2D;
 
@@ -16,8 +18,13 @@
 		ctx.scale(dpr, dpr);
 
 		// color iterpolation endpoints
-		const COLOR_FAR = { r: 242, g: 100, b: 25 };
-		const COLOR_NEAR = { r: 0, g: 102, b: 204 };
+		const COLOR_FAR = !dark ? { r: 242, g: 100, b: 25 } : { r: 245, g: 140, b: 80 };
+
+		const COLOR_NEAR = !dark ? { r: 0, g: 102, b: 204 } : { r: 77, g: 157, b: 224 };
+
+		const EDGE_COLOR = !dark
+			? { r: 20, g: 71, b: 230, a: 0.3 }
+			: { r: 77, g: 157, b: 224, a: 0.35 };
 
 		// prevents particles from disappearing
 		const MIN_ALPHA = 80;
@@ -132,7 +139,7 @@
 
 			impulse = null;
 
-			ctx.strokeStyle = 'rgba(20, 71, 230, 0.3)';
+			ctx.strokeStyle = `rgba(${EDGE_COLOR.r}, ${EDGE_COLOR.g}, ${EDGE_COLOR.b}, ${EDGE_COLOR.a})`;
 			ctx.lineWidth = 0.5;
 			ctx.beginPath();
 
@@ -160,7 +167,7 @@
 
 					ctx.beginPath();
 					ctx.arc(attractorX, attractorY, radius, 0, Math.PI * 2);
-					ctx.strokeStyle = `rgba(242, 100, 25, ${alpha})`;
+					ctx.strokeStyle = `rgba(${COLOR_FAR.r}, ${COLOR_FAR.g}, ${COLOR_FAR.b}, ${alpha})`;
 					ctx.lineWidth = 1;
 					ctx.stroke();
 				}
@@ -168,7 +175,7 @@
 				// fixed central point
 				ctx.beginPath();
 				ctx.arc(attractorX, attractorY, 3, 0, Math.PI * 2);
-				ctx.fillStyle = 'rgba(242, 100, 25, 0.8)';
+				ctx.fillStyle = `rgba(${COLOR_FAR.r}, ${COLOR_FAR.g}, ${COLOR_FAR.b}, 0.8)`;
 				ctx.fill();
 			}
 		};
@@ -213,5 +220,5 @@
 
 <canvas
 	bind:this={canvas}
-	class="pointer-events-none fixed top-0 left-0 -z-50 h-full w-full bg-slate-50"
+	class="pointer-events-none fixed top-0 left-0 -z-50 h-full w-full bg-slate-50 dark:bg-paper-dark"
 ></canvas>

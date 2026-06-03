@@ -86,8 +86,13 @@
 <HomeSection title={contactData.sectionTitle.toString()} titleId="contact" doodle={contactDoodle}>
 	<div class="flex flex-col items-center justify-center gap-10 lg:flex-row">
 		<!-- contact list -->
-		<div bind:this={contactList} class="flex cursor-default flex-col gap-2 bg-slate-50/70 lg:w-1/2">
-			<h3 class="text-xl font-semibold text-blaze italic">{contactData.invitation.title}</h3>
+		<div
+			bind:this={contactList}
+			class="flex cursor-default flex-col gap-2 bg-slate-50/70 lg:w-1/2 dark:bg-paper-dark/70"
+		>
+			<h3 class="text-xl font-semibold text-blaze italic dark:text-blaze-dark">
+				{contactData.invitation.title}
+			</h3>
 			<p class="leading-relaxed">{contactData.invitation.description}</p>
 			<ul class="mt-3 flex flex-col">
 				{#each contactData.contacts as contact, i}
@@ -100,9 +105,13 @@
 							<a
 								href="{isEmail ? 'mailto:' : ''}{contact.link}"
 								target="_blank"
-								class="flex flex-row items-center gap-2 underline underline-offset-4 transition-colors duration-200 hover:text-blaze"
+								class="flex flex-row items-center gap-2 underline underline-offset-4 transition-colors duration-200 hover:text-blaze dark:hover:text-blaze-dark"
 							>
-								<img src={`/contact/${contact.icon}.png`} alt="" class="inline w-7" />
+								<img
+									src={`/contact/${contact.icon}.png`}
+									alt=""
+									class="inline w-7 dark:rounded-lg dark:bg-slate-50"
+								/>
 								<span>
 									{contact.name}
 								</span>
@@ -112,7 +121,7 @@
 									(
 									<a
 										href="mailto:{contact.link}"
-										class="underline underline-offset-4 transition-colors duration-200 hover:text-blaze"
+										class="underline underline-offset-4 transition-colors duration-200 hover:text-blaze dark:hover:text-blaze-dark"
 										>{contact.link}</a
 									>
 									)
@@ -134,7 +143,7 @@
 						bind:this={form}
 						action={WEB3FORMS_ENDPOINT}
 						method="POST"
-						class="flex flex-col gap-2 bg-slate-50/50"
+						class="flex flex-col gap-2 bg-slate-50/50 dark:bg-paper-dark/20"
 					>
 						<!-- web3forms mandatory input -->
 						<input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
@@ -142,7 +151,7 @@
 							<li class="flex flex-col gap-1">
 								<div class="flex flex-row gap-1">
 									<label for="visitorEmail">[1] {contactData.terminal.emailLabel}</label>
-									<p class="font-semibold text-blaze">></p>
+									<p class="font-semibold text-blaze dark:text-blaze-dark">></p>
 								</div>
 								<input
 									required
@@ -152,13 +161,13 @@
 									id="visitorEmail"
 									minlength="3"
 									autocomplete="off"
-									class="rounded border-b-2 border-dashed border-carbon/30 bg-carbon/5 px-2 py-1 outline-0 transition-colors duration-400 focus:border-blaze"
+									class="rounded border-b-2 border-dashed border-carbon/30 bg-carbon/5 px-2 py-1 outline-0 transition-colors duration-400 focus:border-blaze dark:border-slate-50/30 dark:bg-slate-50/5 dark:focus:border-blaze-dark"
 								/>
 							</li>
 							<li class="flex flex-col gap-1">
 								<div class="flex flex-row gap-1">
 									<label for="visitorSubject">[2] {contactData.terminal.subjectLabel}</label>
-									<p class="font-semibold text-blaze">></p>
+									<p class="font-semibold text-blaze dark:text-blaze-dark">></p>
 								</div>
 								<input
 									required
@@ -168,13 +177,13 @@
 									id="visitorSubject"
 									minlength="5"
 									autocomplete="off"
-									class="rounded border-b-2 border-dashed border-carbon/30 bg-carbon/5 px-2 py-1 outline-0 transition-colors duration-400 focus:border-blaze"
+									class="rounded border-b-2 border-dashed border-carbon/30 bg-carbon/5 px-2 py-1 outline-0 transition-colors duration-400 focus:border-blaze dark:border-slate-50/30 dark:bg-slate-50/5 dark:focus:border-blaze-dark"
 								/>
 							</li>
 							<li class="flex flex-col gap-1">
 								<div class="flex flex-row gap-1">
 									<label for="message">[3] {contactData.terminal.messageLabel}</label>
-									<p class="font-semibold text-blaze">></p>
+									<p class="font-semibold text-blaze dark:text-blaze-dark">></p>
 								</div>
 								<textarea
 									required
@@ -183,7 +192,7 @@
 									placeholder="..."
 									minlength="10"
 									autocomplete="off"
-									class="h-48 resize-none overflow-y-scroll rounded border-b-2 border-dashed border-carbon/30 bg-carbon/5 px-2 py-1 outline-0 transition-colors duration-400 focus:border-blaze"
+									class="h-48 resize-none overflow-y-scroll rounded border-b-2 border-dashed border-carbon/30 bg-carbon/5 px-2 py-1 outline-0 transition-colors duration-400 focus:border-blaze dark:border-slate-50/30 dark:bg-slate-50/5 dark:focus:border-blaze-dark"
 								></textarea>
 							</li>
 						</ul>
@@ -191,7 +200,9 @@
 							type="submit"
 							value={contactData.terminal.submitLabel.toString()}
 							class="mt-4 cursor-pointer rounded border-b-2 border-ocean bg-blue-100 py-1.5 text-sm font-semibold text-ocean
-       transition-transform duration-75 active:translate-y-0.5 active:border-t-2 active:border-b-0 active:bg-ocean/20"
+           transition-transform duration-75 active:translate-y-0.5 active:border-t-2 active:border-b-0 active:bg-ocean/20
+           dark:border-sky-400 dark:bg-sky-950 dark:text-sky-300
+           dark:active:bg-sky-400/20"
 						/>
 					</form>
 				</TerminalLine>

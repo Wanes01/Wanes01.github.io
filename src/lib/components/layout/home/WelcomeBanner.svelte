@@ -48,7 +48,7 @@
 	<div
 		use:hidden
 		bind:this={welcomeMessage}
-		class="flex cursor-auto flex-col gap-1 bg-slate-50/60 text-3xl lg:text-5xl"
+		class="flex cursor-auto flex-col gap-1 bg-slate-50/60 text-3xl lg:text-5xl dark:bg-paper-dark/60"
 	>
 		<img
 			src={getLocale() === 'en' ? hiEn : hiIt}
@@ -58,8 +58,8 @@
 		<p>
 			{@html welcome.introductionHTML.toString()}
 		</p>
-		<ShellTyping classes="font-bold text-blaze min-h-20 md:min-h-0" {words} />
-		<p class="mt-2 text-base text-ash">
+		<ShellTyping classes="font-bold text-blaze dark:text-blaze-dark min-h-20 md:min-h-0" {words} />
+		<p class="mt-2 text-base text-ash dark:text-ash-dark">
 			{welcome.caption}
 		</p>
 	</div>

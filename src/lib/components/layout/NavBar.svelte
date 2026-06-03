@@ -1,21 +1,23 @@
 <script lang="ts">
+	import { toggleDarkMode } from '$lib/stores/themes.svelte';
 	import { sections } from '$lib/data/navigation';
 	import { slide } from 'svelte/transition';
 	import hamburger from '$lib/imgs/icons/hamburger.svg';
 	import close from '$lib/imgs/icons/close.svg';
-	import moon from '$lib/imgs/icons/moon.svg';
-	import sun from '$lib/imgs/icons/sun.svg';
 	import { setLocale } from '$lib/i18n/locale.svelte';
 	import Toggle from './Toggle.svelte';
 
 	let menuOpen = $state(false);
 </script>
 
-<nav class="sticky top-0 z-50 border-b border-slate-300 bg-slate-50 px-4 py-3">
+<nav
+	class="sticky top-0 z-50 border-b border-slate-300 bg-slate-50 px-4 py-3 text-carbon dark:border-slate-800 dark:bg-paper-dark dark:text-paper"
+>
 	<div class="flex flex-row items-center justify-between">
 		<div class="flex flex-row items-center gap-4">
-			<div class="flex flex-row items-center gap-2">
-				<p class="font-fira text-sm text-ash">language</p>
+			<!-- language toggle -->
+			<div class="flex flex-row items-baseline gap-2">
+				<p class="font-fira text-sm text-ash dark:text-ash-dark">language</p>
 				<Toggle ariaLabel="Toggle language" onToggle={(isIt) => setLocale(isIt ? 'it' : 'en')}>
 					{#snippet a()}
 						<p>en</p>
@@ -25,19 +27,29 @@
 					{/snippet}
 				</Toggle>
 			</div>
-			<dir class="flex flex-row items-center gap-2">
-				<p class="font-fira text-sm text-ash">theme</p>
+			<!-- theme toggle -->
+			<dir class="flex flex-row items-baseline gap-2">
+				<p class="font-fira text-sm text-ash dark:text-ash-dark">theme</p>
 				<Toggle
 					ariaLabel="Toggle theme"
-					onToggle={(isDark) => document.documentElement.classList.toggle('dark', isDark)}
+					onToggle={(dark) => {
+						toggleDarkMode();
+						document.documentElement.classList.toggle('dark', dark);
+					}}
 				>
 					{#snippet a()}
 						<div
 							class="h-full w-full border border-slate-400 bg-linear-to-br from-slate-200 to-slate-400"
-						></div>
+						>
+							&nbsp;
+						</div>
 					{/snippet}
 					{#snippet b()}
-						<p></p>
+						<div
+							class="h-full w-full border bg-linear-to-br dark:border-slate-600 dark:from-slate-700 dark:to-slate-900"
+						>
+							&nbsp;
+						</div>
 					{/snippet}
 				</Toggle>
 			</dir>
@@ -58,7 +70,7 @@
 					<li>
 						<a
 							href={`#${section.id}`}
-							class="text-carbon transition-colors duration-200 hover:text-blaze"
+							class="text-carbon transition-colors duration-200 hover:text-blaze dark:text-paper hover:dark:text-blaze-dark"
 						>
 							{section.title}
 						</a>

@@ -99,23 +99,27 @@
 		</div>
 
 		<!-- project info -->
-		<div class="info flex w-full cursor-default flex-col gap-6 bg-slate-50/60 lg:basis-1/3">
+		<div
+			class="info flex w-full cursor-default flex-col gap-6 bg-slate-50/60 lg:basis-1/3 dark:bg-paper-dark/60"
+		>
 			<div bind:this={infoEl} class="flex min-h-85 flex-col gap-2 md:min-h-0 lg:min-h-0">
-				<p class="font-fira text-sm text-slate-500">
+				<p class="font-fira text-sm text-ash dark:text-ash-dark">
 					{String(projectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
 				</p>
 				<a href={project.link} target="_blank">
 					<h3
-						class="inline text-2xl font-bold text-ocean underline underline-offset-4 transition-colors hover:text-blaze"
+						class="inline text-2xl font-bold text-ocean underline underline-offset-4 transition-colors hover:text-blaze dark:text-ocean-dark dark:hover:text-blaze-dark"
 					>
 						{project.title}
 					</h3>
 				</a>
 				<p class="text-lg leading-relaxed">{project.desc}</p>
-				<p class="font-fira text-sm text-slate-500">{skillsText}</p>
+				<p class="font-fira text-sm text-slate-500 dark:text-slate-400">{skillsText}</p>
 				<ul class="flex flex-row flex-wrap gap-2">
 					{#each project.skills as skill}
-						<li class="rounded-xl bg-white p-1.5 shadow shadow-slate-200">
+						<li
+							class="rounded-xl bg-white p-1.5 shadow shadow-slate-200 dark:bg-carbon dark:shadow-slate-50/15"
+						>
 							<img src={`/skills/${skill.icon}.png`} alt={skill.name} class="h-8 lg:h-7" />
 						</li>
 					{/each}

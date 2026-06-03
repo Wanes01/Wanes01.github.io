@@ -2,7 +2,9 @@
 	import { contacts } from '$lib/data/contact';
 </script>
 
-<div class="flex flex-col items-center justify-center gap-2 bg-carbon p-4 text-center text-paper">
+<div
+	class="flex flex-col items-center justify-center gap-2 bg-[#15171a] p-4 text-center text-paper"
+>
 	<p class="border-b border-slate-700 p-2">
 		© 2025 Emir Wanes Aouioua · Built with SvelteKit & TailwindCSS
 	</p>

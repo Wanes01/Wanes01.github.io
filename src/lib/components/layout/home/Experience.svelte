@@ -106,16 +106,16 @@
 				<!-- single timeline with all the events -->
 				<div
 					bind:this={mobileLine}
-					class="absolute top-0 left-1.75 h-full w-0.5 rounded-full bg-ocean/40"
+					class="absolute top-0 left-1.75 h-full w-0.5 rounded-full bg-ocean/40 dark:bg-ocean-dark/60"
 				></div>
 				<!-- active part of the timeline -->
 				<div
-					class="absolute top-0 left-1.75 w-0.5 rounded-full bg-orange-300 transition-none"
+					class="absolute top-0 left-1.75 w-0.5 rounded-full bg-orange-300 transition-none dark:bg-orange-200"
 					style="height: {blazeMobileY}px"
 				></div>
 				<!-- blaze pointer -->
 				<div
-					class="pointer-events-none absolute left-0.75 z-10 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-blaze"
+					class="pointer-events-none absolute left-0.75 z-10 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-blaze dark:bg-blaze-dark"
 					style="top: {blazeMobileY}px"
 				></div>
 
@@ -126,16 +126,18 @@
 							class="absolute top-1.5 left-0 h-4 w-4 rounded-full border-2 transition-colors duration-300 {activeMobileNodes.has(
 								i
 							)
-								? 'border-blaze bg-orange-300'
-								: 'border-slate-500 bg-slate-200'}"
+								? 'border-blaze bg-orange-300 dark:border-blaze-dark dark:bg-orange-200'
+								: 'border-slate-500 bg-slate-200 dark:border-slate-400 dark:bg-slate-100'}"
 						></div>
-						<p class="flex cursor-default flex-col gap-1 bg-slate-50/70">
-							<span class="flex items-center gap-1.5 font-fira text-slate-500">
+						<p class="flex cursor-default flex-col gap-1 bg-slate-50/70 dark:bg-paper-dark/70">
+							<span class="flex items-center gap-1.5 font-fira text-ash dark:text-slate-400">
 								<img src={item.type === 'work' ? workIcon : educationIcon} class="w-6" alt="" />
 								{item.year}
 							</span>
-							<span class="text-base font-semibold text-carbon">{item.title}</span>
-							<span class="text-sm leading-relaxed text-slate-600">{@html item.desc}</span>
+							<span class="text-base font-semibold text-carbon dark:text-paper">{item.title}</span>
+							<span class="text-sm leading-relaxed text-slate-600 dark:text-slate-400"
+								>{@html item.desc}</span
+							>
 						</p>
 					</div>
 				{/each}

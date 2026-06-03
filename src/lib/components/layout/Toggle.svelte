@@ -18,7 +18,7 @@
 		onToggle(isB);
 	}}
 	aria-label={ariaLabel}
-	class="flex aspect-square h-7 cursor-pointer flex-row items-center justify-center border text-ash transition-colors duration-200 hover:text-blaze"
+	class="flex aspect-square h-7 cursor-pointer flex-row items-center justify-center border text-ash transition-colors duration-200 hover:text-blaze dark:text-ash-dark hover:dark:text-blaze-dark"
 >
 	{@render (isB ? b : a)()}
 </button>

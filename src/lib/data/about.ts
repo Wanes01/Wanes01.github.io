@@ -19,10 +19,10 @@ export const aboutTitle = tString()
 export const aboutItems: AboutItem[] = [
     { // general info
         img: laurel, cls: 'lg:w-50 w-50', desc: tString()
-            .set('en', `My name is <span class="text-ocean font-bold">Emir Wanes Aouioua</span>. I'm 24, and I've just finished all my exams for my B.Sc. in
+            .set('en', `My name is <span class="text-ocean dark:text-ocean-dark font-bold">Emir Wanes Aouioua</span>. I'm 24, and I've just finished all my exams for my B.Sc. in
 				Computer Science and Engineering. I'll defend my thesis in October and finally call it
 				done.`)
-            .set('it', `Mi chiamo <span class="text-ocean font-bold">Emir Wanes Aouioua</span>. Ho 24 anni e ho appena finito tutti gli esami del corso di laurea triennale in
+            .set('it', `Mi chiamo <span class="text-ocean dark:text-ocean-dark font-bold">Emir Wanes Aouioua</span>. Ho 24 anni e ho appena finito tutti gli esami del corso di laurea triennale in
                 Ingegneria e Scienze Informatiche. A ottobre discuterò la mia tesi e potrò finalmente dire di aver concluso il percorso.`)
     },
     { // why CS
@@ -38,10 +38,10 @@ export const aboutItems: AboutItem[] = [
     },
     { // thesis
         img: world, cls: 'lg:w-50 w-50', desc: tString()
-            .set('en', `My thesis involves rebuilding the data layer of <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean hover:text-blaze">Alchemist</a>, an open source physical
+            .set('en', `My thesis involves rebuilding the data layer of <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean dark:text-ocean-dark hover:text-blaze hover:dark:text-blaze-dark">Alchemist</a>, an open source physical
 				simulator developed at the University of Bologna, to support GeoTIFF and Copernicus EU datasets.
 				It's a project I'm genuinely looking forward to.`)
-            .set('it', `La mia tesi prevede la riorganizzazione del livello dati di <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean hover:text-blaze">Alchemist</a>, un simulatore fisico open source
+            .set('it', `La mia tesi prevede la riorganizzazione del livello dati di <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean dark:text-ocean-dark hover:text-blaze hover:dark:text-blaze-dark">Alchemist</a>, un simulatore fisico open source
                 sviluppato dall'Università di Bologna, al fine di supportare i tipi GeoTIFF estratti dal programma Copernicus dell'Unione Europea.
 				È un progetto davvero entusiasmante.`)
     },
