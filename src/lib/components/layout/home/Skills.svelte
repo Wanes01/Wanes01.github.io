@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { skillSections } from '$lib/data/skills';
+	import { skillSections, skillSectionTitle } from '$lib/data/skills';
 	import { onMount } from 'svelte';
 	import HomeSection from '../HomeSection.svelte';
 	import Terminal from './Terminal.svelte';
@@ -25,8 +25,8 @@
 							clipPath: ['inset(0 100% 0 0)', 'inset(0 0 0 0)']
 						},
 						{
-							delay: stagger(0.1, { startDelay: 0.5 }),
-							duration: 0.2,
+							delay: stagger(0.09, { startDelay: 0.4 }),
+							duration: 0.1,
 							ease: 'linear'
 						}
 					);
@@ -50,7 +50,7 @@
 	});
 </script>
 
-<HomeSection title="Skills" titleId="skills">
+<HomeSection title={skillSectionTitle.toString()} titleId="skills">
 	<div class="flex flex-row justify-center">
 		<Terminal bind:htmlBind={terminal} title="~/skills : bash" classes="w-full lg:w-3/4">
 			{#each skillSections as section}

@@ -2,11 +2,11 @@
 	import HomeSection from '../HomeSection.svelte';
 	import laptopFrame from '$lib/imgs/misc/laptop_frame.png';
 	import projectDoodle from '$lib/imgs/doodles/projects.svg';
-	import { projects } from '$lib/data/projects';
+	import { projects, projectsSectionTitle, skillsText } from '$lib/data/projects';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';
 
-	const NEXT_PROJECT_DELAY = 5000;
+	const NEXT_PROJECT_DELAY = 5500;
 	let projectIndex = $state(0);
 	let project = $derived(projects[projectIndex]);
 	let container = $state<HTMLElement>();
@@ -67,7 +67,7 @@
 	});
 </script>
 
-<HomeSection title="Projects" titleId="projects" doodle={projectDoodle}>
+<HomeSection title={projectsSectionTitle.toString()} titleId="projects" doodle={projectDoodle}>
 	<div bind:this={container} class="flex flex-col items-center gap-8 opacity-0 lg:flex-row">
 		<div class="relative w-full lg:basis-2/3">
 			<div class="lg:overflow-visible">
@@ -112,7 +112,7 @@
 					</h3>
 				</a>
 				<p class="text-lg leading-relaxed">{project.desc}</p>
-				<p class="font-fira text-sm text-slate-500">some of the skills used:</p>
+				<p class="font-fira text-sm text-slate-500">{skillsText}</p>
 				<ul class="flex flex-row flex-wrap gap-2">
 					{#each project.skills as skill}
 						<li class="rounded-xl bg-white p-1.5 shadow shadow-slate-200">

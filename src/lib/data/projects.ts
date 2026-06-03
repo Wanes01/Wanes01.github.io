@@ -1,53 +1,75 @@
+import type TString from "$lib/i18n/TString"
 import type { Skill } from "./skills"
+import { tString } from "$lib/i18n/TString"
 import { skills } from "./skills"
 
 interface Project {
     title: string,
-    desc: string,
+    desc: TString,
     img: string,
     skills: Skill[],
     link?: string
 }
 
+export const projectsSectionTitle = tString()
+    .set('en', 'Projects')
+    .set('it', 'Progetti');
+
+export const skillsText = tString()
+    .set('en', 'some of the skills used:')
+    .set('it', 'alcune delle competenze usate:')
+
 export const projects: Project[] = [
     {
         title: 'Socratic C',
-        desc: 'A containerized web-based IDE for learning the C language, featuring an LLM-powered tutor with multi-provider support, including local models via Ollma, that guides students through errors and concepts in real time.',
+        desc: tString()
+            .set('en', 'A containerized web-based IDE for learning the C language, featuring an LLM-powered tutor with multi-provider support, including local models via Ollama, that guides students through errors and concepts in real time.')
+            .set('it', "Un IDE web containerizzato per l'apprendimento del linguaggio C, dotato di un tutor basato su LLM con supporto multi-provider, inclusi modelli locali tramite Ollama, che guida gli studenti attraverso errori e concetti in tempo reale."),
         img: 'socratic',
         link: 'https://github.com/Wanes01/socratic-c',
         skills: [skills.ts, skills.nodejs, skills.svelte, skills.tailwind, skills.docker]
     },
     {
         title: 'GraphSandbox',
-        desc: 'An ongoing personal project: a web app for generating any type of graph on the fly and visualizing classical algorithms (BFS, DFS, Dijkstra, Bellman-Ford) as well as heuristic ones running on them.',
+        desc: tString()
+            .set('en', 'An ongoing personal project: a web app for generating any type of graph on the fly and visualizing classical algorithms (BFS, DFS, Dijkstra, Bellman-Ford) as well as heuristic ones running on them.')
+            .set('it', "Un progetto personale in corso: una web app per generare qualsiasi tipo di grafo al volo e visualizzare l'esecuzione di algoritmi classici (BFS, DFS, Dijkstra, Bellman-Ford) ed euristici su di essi."),
         img: 'graphsandbox',
         link: 'https://github.com/Wanes01/graph-sandbox',
         skills: [skills.svelte, skills.js, skills.tailwind]
     },
     {
         title: 'Savestate',
-        desc: 'An Android app to search for video games, browse their details, build a personal library and track play sessions with statistics, all tied together by an XP-based gamification system.',
+        desc: tString()
+            .set('en', 'An Android app to search for video games, browse their details, build a personal library and track play sessions with statistics, all tied together by an XP-based gamification system.')
+            .set('it', "Un'app Android per cercare videogiochi, consultarne i dettagli, costruire una libreria personale e tracciare le sessioni di gioco con statistiche, il tutto unito da un sistema di gamification basato sull'esperienza (XP)."),
         img: 'savestate',
         link: 'https://github.com/Wanes01/savestate',
         skills: [skills.kotlin, skills.android]
     },
     {
         title: 'UniUtils',
-        desc: 'A full-stack mock e-commerce platform for buying and selling university supplies, targeting both students and academic institutions.',
+        desc: tString()
+            .set('en', 'A full-stack mock e-commerce platform for buying and selling university supplies, targeting both students and academic institutions.')
+            .set('it', "Una piattaforma e-commerce full-stack simulata per la compravendita di materiale universitario, rivolta sia agli studenti che alle istituzioni accademiche."),
         img: 'uniutils',
         link: 'https://github.com/Wanes01/uniutils',
         skills: [skills.js, skills.css, skills.tailwind, skills.html, skills.php]
     },
     {
         title: 'Jvmt',
-        desc: 'A group project in Java, a digital implementation of the Diamant board game.',
+        desc: tString()
+            .set('en', 'A group project in Java, a digital implementation of the Diamant board game.')
+            .set('it', "Un progetto di gruppo in Java, una trasposizione digitale del gioco da tavolo Diamant."),
         img: 'jvmt',
         link: 'https://github.com/Wanes01/OOP24-jvmt',
         skills: [skills.java, skills.kotlin]
     },
     {
         title: 'Customer Churn Classifier',
-        desc: 'A machine learning project trained on a fictional telecom dataset to predict, for each customer, the probability of churning in the current month based on their historical data. The study is accompanied by a simple web app.',
+        desc: tString()
+            .set('en', 'A machine learning project trained on a fictional telecom dataset to predict, for each customer, the probability of churning in the current month based on their historical data. The study is accompanied by a simple web app.')
+            .set('it', "Un progetto di machine learning addestrato su un dataset fittizio di telecomunicazioni per prevedere, per ogni cliente, la probabilità di abbandono (churn) nel mese corrente in base ai dati storici. Lo studio è accompagnato da una semplice web app."),
         img: 'churn',
         link: 'https://github.com/Wanes01/customer-churn-classifier',
         skills: [skills.python, skills.scikit]

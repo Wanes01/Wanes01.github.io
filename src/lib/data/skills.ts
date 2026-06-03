@@ -1,7 +1,13 @@
+import { tString } from "$lib/i18n/TString"
+
 export interface Skill {
     name: string,
     icon: string
 }
+
+export const skillSectionTitle = tString()
+    .set('en', 'Skills')
+    .set('it', 'Competenze')
 
 interface SkillSection {
     section: string,

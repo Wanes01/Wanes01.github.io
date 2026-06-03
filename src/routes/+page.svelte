@@ -9,7 +9,7 @@
 
 <div class="flex flex-col items-center gap-25 px-10 py-10 lg:gap-35 lg:px-50">
 	<WelcomeBanner />
-	<div class="flex flex-col gap-10 lg:w-7/8 lg:gap-25">
+	<div class="flex flex-col gap-10 lg:mb-10 lg:w-7/8 lg:gap-25">
 		<About />
 		<Experience />
 		<Skills />

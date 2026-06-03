@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { LifeEvent } from '$lib/data/experience';
 	import { animate, inView } from 'motion';
+	import type { LifeEvent } from '$lib/data/experience';
 
 	interface Props {
 		title: string;
@@ -117,7 +117,7 @@
 				<p class="flex cursor-default flex-col gap-1 bg-slate-50/70">
 					<span class="font-fira text-slate-500">{item.year}</span>
 					<span class="text-base font-semibold text-carbon">{item.title}</span>
-					<span class="text-sm leading-relaxed text-slate-600">{item.desc}</span>
+					<span class="text-sm leading-relaxed text-slate-600">{@html item.desc.toString()}</span>
 				</p>
 			</div>
 		{/each}

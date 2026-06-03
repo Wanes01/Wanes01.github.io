@@ -1,8 +1,8 @@
 <script lang="ts">
+	import { experienceData } from '$lib/data/experience';
 	import HomeSection from '../HomeSection.svelte';
 	import exp from '$lib/imgs/doodles/exp.svg';
 	import { onMount } from 'svelte';
-	import { education, work, allEvents } from '$lib/data/experience';
 	import workIcon from '$lib/imgs/icons/work.svg';
 	import educationIcon from '$lib/imgs/icons/study.svg';
 	import TimelineColumn from './TimelineColumn.svelte';
@@ -84,12 +84,20 @@
 	});
 </script>
 
-<HomeSection title="Education & Experience" titleId="experience" doodle={exp}>
+<HomeSection title={experienceData.sectionTitle.toString()} titleId="experience" doodle={exp}>
 	<div bind:this={container} class="w-full">
 		<!-- desktop version (two distinct lines) -->
 		<div class="hidden lg:grid lg:grid-cols-2 lg:gap-16">
-			<TimelineColumn title="[education]" items={education} justifyEvenly />
-			<TimelineColumn title="[work]" items={work} justifyEvenly />
+			<TimelineColumn
+				title={`[${experienceData.eduTitle}]`}
+				items={experienceData.education}
+				justifyEvenly
+			/>
+			<TimelineColumn
+				title={`[${experienceData.workTitle}]`}
+				items={experienceData.work}
+				justifyEvenly
+			/>
 		</div>
 
 		<!-- mobile -->
@@ -111,7 +119,7 @@
 					style="top: {blazeMobileY}px"
 				></div>
 
-				{#each allEvents as item, i}
+				{#each experienceData.allLifeEvents as item, i}
 					<div class="relative flex flex-col gap-1 pb-10 pl-8">
 						<div
 							use:mobileNode={i}
@@ -127,7 +135,7 @@
 								{item.year}
 							</span>
 							<span class="text-base font-semibold text-carbon">{item.title}</span>
-							<span class="text-sm leading-relaxed text-slate-600">{item.desc}</span>
+							<span class="text-sm leading-relaxed text-slate-600">{@html item.desc}</span>
 						</p>
 					</div>
 				{/each}

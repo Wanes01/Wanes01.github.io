@@ -1,7 +1,7 @@
 <script lang="ts">
 	import HomeSection from '../HomeSection.svelte';
 	import aboutDoodle from '$lib/imgs/doodles/about.svg';
-	import { descriptions } from '$lib/data/about';
+	import { aboutItems, aboutTitle } from '$lib/data/about';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';
 
@@ -29,19 +29,19 @@
 	});
 </script>
 
-<HomeSection title="About me" titleId="about" doodle={aboutDoodle}>
-	<ul class="flex flex-col gap-y-10 text-[1.11rem] leading-relaxed">
-		{#each descriptions as description, i}
+<HomeSection title={aboutTitle.toString()} titleId="about" doodle={aboutDoodle}>
+	<ul class="flex flex-col gap-y-10 text-[1.11rem] leading-relaxed lg:gap-y-5">
+		{#each aboutItems as item, i}
 			<li
 				class="flex flex-col items-center justify-between gap-8 lg:flex-row {i % 2 == 1
 					? 'items-center lg:flex-row-reverse'
 					: ''}"
 			>
 				<p use:registerItem class="cursor-default bg-slate-50/60 lg:w-1/2">
-					{@html description.desc}
+					{@html item.desc.toString()}
 				</p>
 				<div use:registerItem class="flex justify-center lg:w-1/2">
-					<img src={description.img} alt="" class={description.cls} />
+					<img src={item.img} alt="" class={item.cls} />
 				</div>
 			</li>
 		{/each}

@@ -3,7 +3,7 @@
 	import Terminal from './Terminal.svelte';
 	import TerminalLine from './TerminalLine.svelte';
 	import contactDoodle from '$lib/imgs/doodles/contact.svg';
-	import { contacts } from '$lib/data/contact';
+	import { contactData } from '$lib/data/contact';
 	import { onMount } from 'svelte';
 	import { inView, animate } from 'motion';
 
@@ -22,16 +22,14 @@
 
 	// color of the result. Defaults if the message is getting processed.
 	let resultColor = $derived.by(() => {
-		if (resultStatus === 'processing') return '';
+		if (resultStatus === 'processing' || resultStatus === undefined) return '';
 		return resultStatus === 'success' ? 'text-green-700' : 'text-red-700';
 	});
 
 	// the result message
 	let resultShownMessage = $derived.by(() => {
-		if (resultStatus === 'processing') return 'Sending your message, please wait...';
-		return resultStatus === 'success'
-			? 'The message was sent successfully :D'
-			: 'Something went wrong while sending the message D:';
+		if (resultStatus === 'processing' || resultStatus === undefined) return '';
+		return resultStatus === 'success' ? contactData.msgResult.success : contactData.msgResult.error;
 	});
 
 	onMount(() => {
@@ -62,8 +60,6 @@
 			}
 		});
 
-		console.log(form);
-
 		// send the message and shows the result to the user
 		form?.addEventListener('submit', (e) => {
 			e.preventDefault();
@@ -87,18 +83,15 @@
 	});
 </script>
 
-<HomeSection title="Contact" titleId="contact" doodle={contactDoodle}>
+<HomeSection title={contactData.sectionTitle.toString()} titleId="contact" doodle={contactDoodle}>
 	<div class="flex flex-col items-center justify-center gap-10 lg:flex-row">
 		<!-- contact list -->
-		<div bind:this={contactList} class="flex flex-col gap-2 bg-slate-50/70 lg:w-1/2">
-			<h3 class="text-xl font-semibold text-blaze italic">Let's get in touch!</h3>
-			<p class="leading-relaxed">
-				Feel free to contact me on any of these platforms, ora use the following form to send me a
-				message
-			</p>
+		<div bind:this={contactList} class="flex cursor-default flex-col gap-2 bg-slate-50/70 lg:w-1/2">
+			<h3 class="text-xl font-semibold text-blaze italic">{contactData.invitation.title}</h3>
+			<p class="leading-relaxed">{contactData.invitation.description}</p>
 			<ul class="mt-3 flex flex-col">
-				{#each contacts as contact, i}
-					{@const isLastOne = i == contacts.length - 1}
+				{#each contactData.contacts as contact, i}
+					{@const isLastOne = i == contactData.contacts.length - 1}
 					{@const isEmail = contact.name === 'Email'}
 					<li>│</li>
 					<li class="flex flex-row gap-2">
@@ -131,8 +124,12 @@
 			</ul>
 		</div>
 		<div class="w-full">
-			<Terminal bind:htmlBind={formTerminal} title="send me an email!" classes="w-full">
-				<TerminalLine command="./send_message_to_emir.sh" user="visitor" host="pc">
+			<Terminal
+				bind:htmlBind={formTerminal}
+				title={contactData.terminal.title.toString()}
+				classes="w-full"
+			>
+				<TerminalLine command={contactData.terminal.command.toString()} user="visitor" host="pc">
 					<form
 						bind:this={form}
 						action={WEB3FORMS_ENDPOINT}
@@ -144,7 +141,7 @@
 						<ul class="flex flex-col gap-3">
 							<li class="flex flex-col gap-1">
 								<div class="flex flex-row gap-1">
-									<label for="visitorEmail">[1] Your email</label>
+									<label for="visitorEmail">[1] {contactData.terminal.emailLabel}</label>
 									<p class="font-semibold text-blaze">></p>
 								</div>
 								<input
@@ -160,7 +157,7 @@
 							</li>
 							<li class="flex flex-col gap-1">
 								<div class="flex flex-row gap-1">
-									<label for="visitorSubject">[2] Subject</label>
+									<label for="visitorSubject">[2] {contactData.terminal.subjectLabel}</label>
 									<p class="font-semibold text-blaze">></p>
 								</div>
 								<input
@@ -176,7 +173,7 @@
 							</li>
 							<li class="flex flex-col gap-1">
 								<div class="flex flex-row gap-1">
-									<label for="message">[3] Message</label>
+									<label for="message">[3] {contactData.terminal.messageLabel}</label>
 									<p class="font-semibold text-blaze">></p>
 								</div>
 								<textarea
@@ -192,18 +189,23 @@
 						</ul>
 						<input
 							type="submit"
-							value="send_message()"
+							value={contactData.terminal.submitLabel.toString()}
 							class="mt-4 cursor-pointer rounded border-b-2 border-ocean bg-blue-100 py-1.5 text-sm font-semibold text-ocean
        transition-transform duration-75 active:translate-y-0.5 active:border-t-2 active:border-b-0 active:bg-ocean/20"
 						/>
 					</form>
 				</TerminalLine>
-				{#if resultStatus != undefined}
+				{#if resultStatus !== undefined}
 					<div class="mt-5" bind:this={resultTerminalLine}>
-						<TerminalLine command="./print_message_result.sh">
-							<p class={resultColor}>
-								>>> {resultShownMessage}
-							</p>
+						<TerminalLine command={contactData.terminal.printCmd.toString()}>
+							<div class="flex flex-col gap-1">
+								<p>{contactData.msgResult.processing}</p>
+								{#if resultStatus === 'success' || resultStatus === 'error'}
+									<p class={resultColor}>
+										>>> {resultShownMessage}
+									</p>
+								{/if}
+							</div>
 						</TerminalLine>
 					</div>
 				{/if}

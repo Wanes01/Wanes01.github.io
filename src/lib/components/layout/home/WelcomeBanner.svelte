@@ -1,5 +1,8 @@
 <script lang="ts">
-	import hi from '$lib/imgs/doodles/hi.svg';
+	import { getLocale } from '$lib/i18n/locale.svelte';
+	import { welcome } from '$lib/data/welcome';
+	import hiIt from '$lib/imgs/doodles/hi_it.svg';
+	import hiEn from '$lib/imgs/doodles/hi_en.svg';
 	import emir from '$lib/imgs/misc/emir.webp';
 	import ShellTyping from './ShellTyping.svelte';
 	import Terminal from './Terminal.svelte';
@@ -47,21 +50,23 @@
 		bind:this={welcomeMessage}
 		class="flex cursor-auto flex-col gap-1 bg-slate-50/60 text-3xl lg:text-5xl"
 	>
-		<img src={hi} alt="hi!" class="inline w-28 lg:w-43" />
+		<img
+			src={getLocale() === 'en' ? hiEn : hiIt}
+			alt="hi!"
+			class="inline {getLocale() === 'en' ? 'w-28 lg:w-43' : 'w-36 lg:w-57'}"
+		/>
 		<p>
-			My name is
-			<span class="font-bold text-ocean">Emir</span>, I'm a
+			{@html welcome.introductionHTML.toString()}
 		</p>
 		<ShellTyping classes="font-bold text-blaze min-h-20 md:min-h-0" {words} />
 		<p class="mt-2 text-base text-ash">
-			I will have completed my Bachelor of Science (B.Sc.) in Computer Science and Engineering by
-			October!
+			{welcome.caption}
 		</p>
 	</div>
 
 	<!-- personal image in terminal emulator -->
 	<Terminal bind:htmlBind={terminal} classes="w-full lg:w-5/12">
-		<TerminalLine command={'echo "This is me:"'} output="This is me:" />
+		<TerminalLine command={`echo "${welcome.echo}"`} output={welcome.echo.toString()} />
 		<TerminalLine command="chafa emir.webp">
 			<img src={emir} alt="Emir" class="w-70 rounded-xl" />
 		</TerminalLine>
