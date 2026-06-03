@@ -81,14 +81,14 @@
 	{#if menuOpen}
 		<ul
 			transition:slide={{ duration: 200 }}
-			class="absolute right-0 left-0 flex flex-col gap-4 border-b border-slate-300 bg-slate-50 px-4 pt-4 pb-2 lg:hidden dark:border-slate-800 dark:bg-paper-dark"
+			class="absolute right-0 left-0 flex flex-col gap-4 border-b border-slate-300 bg-slate-50 px-4 pt-5 pb-2 lg:hidden dark:border-slate-800 dark:bg-paper-dark"
 		>
 			{#each sections as section}
 				<li class="flex flex-row justify-center">
 					<a
 						href={`#${section.id}`}
 						onclick={() => (menuOpen = false)}
-						class="w-full text-center text-carbon transition-colors duration-200 hover:text-blaze dark:text-paper dark:hover:text-blaze-dark"
+						class="w-full py-1 text-center text-carbon transition-colors duration-200 hover:text-blaze dark:text-paper dark:hover:text-blaze-dark"
 					>
 						{section.title}
 					</a>

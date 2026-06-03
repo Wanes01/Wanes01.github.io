@@ -24,7 +24,7 @@
 
 		const EDGE_COLOR = !dark
 			? { r: 20, g: 71, b: 230, a: 0.3 }
-			: { r: 77, g: 157, b: 224, a: 0.35 };
+			: { r: 77, g: 157, b: 224, a: 0.37 };
 
 		// prevents particles from disappearing
 		const MIN_ALPHA = 80;
