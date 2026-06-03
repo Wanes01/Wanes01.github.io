@@ -58,8 +58,8 @@ export const contactData: ContactPageData = {
             .set('en', `Let's get in touch!`)
             .set('it', `Contattami!`),
         description: tString()
-            .set('en', `You can contact me on these platforms, or use the this form to send me a message.`)
-            .set('it', `Puoi contattarmi su queste piattaforme, oppure usare il questo form per mandarmi un messaggio.`)
+            .set('en', `You can contact me on these platforms, or use this form to send me a message.`)
+            .set('it', `Puoi contattarmi su queste piattaforme, oppure usare il form per mandarmi un messaggio.`)
     },
     terminal: {
         title: tString()
