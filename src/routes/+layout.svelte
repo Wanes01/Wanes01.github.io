@@ -10,12 +10,14 @@
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
-<ParticleCanvasBackground dark={isDarkMode()} />
-<!-- bg-slate-50 -->
-<NavBar />
-<main
-	class="relative z-10 min-h-screen cursor-pointer overflow-x-hidden font-inter text-carbon dark:text-paper"
->
-	{@render children()}
-</main>
-<Footer />
+<div class="-z-50 h-full w-full bg-slate-50 dark:bg-paper-dark">
+	<ParticleCanvasBackground dark={isDarkMode()} />
+	<!-- bg-slate-50 -->
+	<NavBar />
+	<main
+		class="relative z-10 min-h-screen cursor-pointer overflow-x-hidden font-inter text-carbon dark:text-paper"
+	>
+		{@render children()}
+	</main>
+	<Footer />
+</div>

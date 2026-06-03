@@ -220,5 +220,5 @@
 
 <canvas
 	bind:this={canvas}
-	class="pointer-events-none fixed top-0 left-0 -z-50 h-full w-full bg-slate-50 dark:bg-paper-dark"
+	class="pointer-events-none fixed top-0 left-0 z-0 h-full w-full bg-slate-50 dark:bg-paper-dark"
 ></canvas>

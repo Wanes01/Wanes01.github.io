@@ -1,5 +1,4 @@
 <script lang="ts">
-	import asterisk from '$lib/imgs/doodles/asterisk.svg';
 	import { animate, inView } from 'motion';
 
 	interface Props {
@@ -9,7 +8,7 @@
 		children?: import('svelte').Snippet;
 	}
 
-	let { title, doodle = asterisk, titleId, children }: Props = $props();
+	let { title, doodle, titleId, children }: Props = $props();
 
 	const fadeInUp = (el: HTMLElement, delay = 0) => {
 		el.style.opacity = '0';

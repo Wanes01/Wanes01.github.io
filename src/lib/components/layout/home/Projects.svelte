@@ -1,10 +1,9 @@
 <script lang="ts">
 	import HomeSection from '../HomeSection.svelte';
-	import laptopFrame from '$lib/imgs/misc/laptop_frame.png';
-	import projectDoodle from '$lib/imgs/doodles/projects.svg';
 	import { projects, projectsSectionTitle, skillsText } from '$lib/data/projects';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';
+	import isDarkMode from '$lib/stores/themes.svelte';
 
 	const NEXT_PROJECT_DELAY = 5500;
 	let projectIndex = $state(0);
@@ -67,12 +66,16 @@
 	});
 </script>
 
-<HomeSection title={projectsSectionTitle.toString()} titleId="projects" doodle={projectDoodle}>
+<HomeSection
+	title={projectsSectionTitle.toString()}
+	titleId="projects"
+	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/projects.svg`}
+>
 	<div bind:this={container} class="flex flex-col items-center gap-8 opacity-0 lg:flex-row">
 		<div class="relative w-full lg:basis-2/3">
 			<div class="lg:overflow-visible">
 				<img
-					src={laptopFrame}
+					src="/misc/laptop_frame.png"
 					alt=""
 					class="block w-full origin-top scale-[1.25] md:scale-[1.1] lg:scale-100"
 				/>

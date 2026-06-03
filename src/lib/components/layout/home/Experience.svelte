@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { experienceData } from '$lib/data/experience';
 	import HomeSection from '../HomeSection.svelte';
-	import exp from '$lib/imgs/doodles/exp.svg';
 	import { onMount } from 'svelte';
-	import workIcon from '$lib/imgs/icons/work.svg';
-	import educationIcon from '$lib/imgs/icons/study.svg';
 	import TimelineColumn from './TimelineColumn.svelte';
 	import { animate, inView } from 'motion';
+	import isDarkMode from '$lib/stores/themes.svelte';
 
 	// referred to compute the blaze dot position
 	let container = $state<HTMLElement>();
@@ -84,7 +82,11 @@
 	});
 </script>
 
-<HomeSection title={experienceData.sectionTitle.toString()} titleId="experience" doodle={exp}>
+<HomeSection
+	title={experienceData.sectionTitle.toString()}
+	titleId="experience"
+	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/exp.svg`}
+>
 	<div bind:this={container} class="w-full">
 		<!-- desktop version (two distinct lines) -->
 		<div class="hidden lg:grid lg:grid-cols-2 lg:gap-16">
@@ -120,6 +122,7 @@
 				></div>
 
 				{#each experienceData.allLifeEvents as item, i}
+					{@const icon = `/icons${isDarkMode() ? '_dark' : ''}/${item.type === 'work' ? 'work' : 'study'}.svg`}
 					<div class="relative flex flex-col gap-1 pb-10 pl-8">
 						<div
 							use:mobileNode={i}
@@ -131,12 +134,12 @@
 						></div>
 						<p class="flex cursor-default flex-col gap-1 bg-slate-50/70 dark:bg-paper-dark/70">
 							<span class="flex items-center gap-1.5 font-fira text-ash dark:text-slate-400">
-								<img src={item.type === 'work' ? workIcon : educationIcon} class="w-6" alt="" />
+								<img src={icon} class="w-6" alt="" />
 								{item.year}
 							</span>
 							<span class="text-base font-semibold text-carbon dark:text-paper">{item.title}</span>
 							<span class="text-sm leading-relaxed text-slate-600 dark:text-slate-400"
-								>{@html item.desc}</span
+								>{@html item.desc.toString()}</span
 							>
 						</p>
 					</div>

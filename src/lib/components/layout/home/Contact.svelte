@@ -2,10 +2,10 @@
 	import HomeSection from '../HomeSection.svelte';
 	import Terminal from './Terminal.svelte';
 	import TerminalLine from './TerminalLine.svelte';
-	import contactDoodle from '$lib/imgs/doodles/contact.svg';
 	import { contactData } from '$lib/data/contact';
 	import { onMount } from 'svelte';
 	import { inView, animate } from 'motion';
+	import isDarkMode from '$lib/stores/themes.svelte';
 
 	// NOTE: this key is meant to be public. There is no security risk
 	// leaving it here.
@@ -83,7 +83,11 @@
 	});
 </script>
 
-<HomeSection title={contactData.sectionTitle.toString()} titleId="contact" doodle={contactDoodle}>
+<HomeSection
+	title={contactData.sectionTitle.toString()}
+	titleId="contact"
+	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/contact.svg`}
+>
 	<div class="flex flex-col items-center justify-center gap-10 lg:flex-row">
 		<!-- contact list -->
 		<div
