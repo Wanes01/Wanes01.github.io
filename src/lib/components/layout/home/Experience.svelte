@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 	import TimelineColumn from './TimelineColumn.svelte';
 	import { animate, inView } from 'motion';
-	import isDarkMode from '$lib/stores/themes.svelte';
+	import { getThemeImgPath } from '$lib/utility/utils';
 
 	// referred to compute the blaze dot position
 	let container = $state<HTMLElement>();
@@ -85,7 +85,7 @@
 <HomeSection
 	title={experienceData.sectionTitle.toString()}
 	titleId="experience"
-	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/exp.svg`}
+	doodle={getThemeImgPath('exp.svg', true)}
 >
 	<div bind:this={container} class="w-full">
 		<!-- desktop version (two distinct lines) -->
@@ -121,8 +121,7 @@
 					style="top: {blazeMobileY}px"
 				></div>
 
-				{#each experienceData.allLifeEvents as item, i}
-					{@const icon = `/icons${isDarkMode() ? '_dark' : ''}/${item.type === 'work' ? 'work' : 'study'}.svg`}
+				{#each experienceData.allLifeEvents as item, i}}
 					<div class="relative flex flex-col gap-1 pb-10 pl-8">
 						<div
 							use:mobileNode={i}
@@ -134,7 +133,11 @@
 						></div>
 						<p class="flex cursor-auto flex-col gap-1 bg-slate-50/70 dark:bg-paper-dark/70">
 							<span class="flex items-center gap-1.5 font-fira text-ash dark:text-slate-400">
-								<img src={icon} class="w-6" alt="" />
+								<img
+									src={getThemeImgPath(`${item.type === 'work' ? 'work' : 'study'}.svg`, false)}
+									class="w-6"
+									alt=""
+								/>
 								{item.year}
 							</span>
 							<span class="text-base font-semibold text-carbon dark:text-paper">{item.title}</span>

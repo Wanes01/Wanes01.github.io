@@ -1,7 +1,7 @@
 <script lang="ts">
-	import isDarkMode from '$lib/stores/themes.svelte';
 	import { getLocale } from '$lib/i18n/locale.svelte';
 	import { welcome } from '$lib/data/welcome';
+	import { getThemeImgPath } from '$lib/utility/utils';
 	import ShellTyping from './ShellTyping.svelte';
 	import Terminal from './Terminal.svelte';
 	import TerminalLine from './TerminalLine.svelte';
@@ -49,7 +49,7 @@
 		class="flex cursor-auto flex-col gap-1 bg-slate-50/60 text-3xl lg:text-5xl dark:bg-paper-dark/60"
 	>
 		<img
-			src={`/doodles${isDarkMode() ? '_dark' : ''}/hi_${getLocale()}.svg`}
+			src={getThemeImgPath(`hi_${getLocale()}.svg`, true)}
 			alt="hi!"
 			class="inline {getLocale() === 'en' ? 'w-28 lg:w-43' : 'w-36 lg:w-57'}"
 		/>

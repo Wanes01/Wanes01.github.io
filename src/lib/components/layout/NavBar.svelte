@@ -1,5 +1,6 @@
 <script lang="ts">
-	import isDarkMode, { toggleDarkMode } from '$lib/stores/themes.svelte';
+	import { toggleDarkMode } from '$lib/stores/themes.svelte';
+	import { getThemeImgPath } from '$lib/utility/utils';
 	import { sections, langToggle, themeToggle } from '$lib/data/navigation';
 	import { slide } from 'svelte/transition';
 	import { setLocale } from '$lib/i18n/locale.svelte';
@@ -56,7 +57,7 @@
 		<div class="flex flex-row items-center">
 			<button class="lg:hidden" onclick={() => (menuOpen = !menuOpen)} aria-label="Toggle menu">
 				<img
-					src={`/icons${isDarkMode() ? '_dark' : ''}/${menuOpen ? 'close' : 'hamburger'}.svg`}
+					src={getThemeImgPath(`${menuOpen ? 'close' : 'hamburger'}.svg`, false)}
 					alt=""
 					class="h-5 cursor-pointer transition-all duration-200 {menuOpen
 						? 'rotate-90'

@@ -1,9 +1,5 @@
-let isDark = $state<boolean>(false);
+export const theme = $state({ dark: false });
 
 export const toggleDarkMode = () => {
-    isDark = !isDark;
+    theme.dark = !theme.dark;
 }
-
-export default function isDarkMode() {
-    return isDark;
-} 

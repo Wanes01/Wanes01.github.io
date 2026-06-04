@@ -4,14 +4,13 @@
 	import NavBar from '$lib/components/layout/NavBar.svelte';
 	import ParticleCanvasBackground from '$lib/components/layout/ParticleCanvasBackground.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
-	import isDarkMode from '$lib/stores/themes.svelte';
 
 	let { children } = $props();
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 <div class="flex min-h-screen flex-col bg-slate-50 dark:bg-paper-dark">
-	<ParticleCanvasBackground dark={isDarkMode()} />
+	<ParticleCanvasBackground />
 	<NavBar />
 	<main
 		class="relative z-10 flex-1 cursor-pointer overflow-x-hidden font-inter text-carbon dark:text-paper"

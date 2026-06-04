@@ -1,30 +1,31 @@
 <script lang="ts">
 	import Particle from '$lib/models/Particle';
+	import { theme } from '$lib/stores/themes.svelte';
 	import { getRandomIntInclusive } from '$lib/utility/utils';
 	import { onMount } from 'svelte';
-
-	let { dark } = $props();
 
 	let canvas: HTMLCanvasElement;
 	let ctx: CanvasRenderingContext2D;
 
+	// color iterpolation endpoints
+	// uses different colors for light and dark mode
+	let COLOR_FAR = $derived(!theme.dark ? { r: 242, g: 100, b: 25 } : { r: 245, g: 140, b: 80 });
+
+	let COLOR_NEAR = $derived(!theme.dark ? { r: 0, g: 102, b: 204 } : { r: 77, g: 157, b: 224 });
+
+	let EDGE_COLOR = $derived(
+		!theme.dark ? { r: 20, g: 71, b: 230, a: 0.3 } : { r: 77, g: 157, b: 224, a: 0.38 }
+	);
+
 	onMount(() => {
 		const dpr = window.devicePixelRatio || 1;
+		const isOnMobile = window.innerWidth < 768;
 
 		ctx = canvas.getContext('2d')!;
 		canvas.width = window.innerWidth * dpr;
 		canvas.height = window.innerHeight * dpr;
 
 		ctx.scale(dpr, dpr);
-
-		// color iterpolation endpoints
-		const COLOR_FAR = !dark ? { r: 242, g: 100, b: 25 } : { r: 245, g: 140, b: 80 };
-
-		const COLOR_NEAR = !dark ? { r: 0, g: 102, b: 204 } : { r: 77, g: 157, b: 224 };
-
-		const EDGE_COLOR = !dark
-			? { r: 20, g: 71, b: 230, a: 0.3 }
-			: { r: 77, g: 157, b: 224, a: 0.38 };
 
 		// prevents particles from disappearing
 		const MIN_ALPHA = 80;
@@ -34,9 +35,9 @@
 
 		// minimum and maximum orbit from attractor
 		// values on mobile : values on desktop
-		const MIN_ORBIT = window.innerWidth < 768 ? 100 : 120;
-		const MAX_ORBIT = window.innerWidth < 768 ? 250 : 900;
-		const PARTICLES_AMOUNT = window.innerWidth < 768 ? 75 : 200;
+		const MIN_ORBIT = isOnMobile ? 80 : 120;
+		const MAX_ORBIT = isOnMobile ? 270 : 900;
+		const PARTICLES_AMOUNT = isOnMobile ? 75 : 200;
 
 		// maximum distance in pixels between two particles for a connection to be drawn.
 		// precomputed squared value to avoid Math.sqrt in the render loop
@@ -45,7 +46,7 @@
 
 		// probability [0,1] that any two particles will have a connection between them.
 		// applied once at initialization, not every frame.
-		const CONNECTION_PROBABILITY = window.innerWidth < 768 ? 0.35 : 0.4;
+		const CONNECTION_PROBABILITY = isOnMobile ? 0.25 : 0.4;
 
 		// cursor attraction pulse rings amount
 		const RINGS = 3;
@@ -155,7 +156,7 @@
 			ctx.stroke();
 
 			// pulse indicator, dekstop only
-			if (window.innerWidth >= 768) {
+			if (!isOnMobile) {
 				pulseTime = (pulseTime + PULSE_SPEED) % 1;
 
 				for (let i = 0; i < RINGS; i++) {
@@ -184,6 +185,9 @@
 
 		// sets the attractor's coordinates
 		const handleMouseMove = (e: MouseEvent) => {
+			const target = e.target as HTMLElement;
+			// ignores clicks from the navbar or his children
+			if (target.closest('nav') && isOnMobile) return;
 			attractorX = e.clientX;
 			attractorY = e.clientY;
 		};
@@ -202,6 +206,9 @@
 
 		// store the click position as a pending impulse
 		const handleClick = (e: MouseEvent) => {
+			const target = e.target as HTMLElement;
+			// ignores clicks from the navbar or his children on mobile
+			if (target.closest('nav') && isOnMobile) return;
 			impulse = { x: e.clientX, y: e.clientY };
 		};
 

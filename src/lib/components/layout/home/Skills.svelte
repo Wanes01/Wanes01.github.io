@@ -5,7 +5,7 @@
 	import Terminal from './Terminal.svelte';
 	import TerminalLine from './TerminalLine.svelte';
 	import { animate, inView, stagger } from 'motion';
-	import isDarkMode from '$lib/stores/themes.svelte';
+	import { getThemeImgPath } from '$lib/utility/utils';
 
 	let terminal = $state<HTMLElement>();
 	let isMobile = $state(false);
@@ -54,7 +54,7 @@
 <HomeSection
 	title={skillSectionTitle.toString()}
 	titleId="skills"
-	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/asterisk.svg`}
+	doodle={getThemeImgPath('asterisk.svg', true)}
 >
 	<div class="flex flex-row justify-center">
 		<Terminal bind:htmlBind={terminal} title="~/skills : bash" classes="w-full lg:w-3/4">

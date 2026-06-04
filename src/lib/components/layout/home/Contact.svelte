@@ -5,7 +5,7 @@
 	import { contactData } from '$lib/data/contact';
 	import { onMount } from 'svelte';
 	import { inView, animate } from 'motion';
-	import isDarkMode from '$lib/stores/themes.svelte';
+	import { getThemeImgPath } from '$lib/utility/utils';
 
 	// NOTE: this key is meant to be public. There is no security risk
 	// leaving it here.
@@ -86,7 +86,7 @@
 <HomeSection
 	title={contactData.sectionTitle.toString()}
 	titleId="contact"
-	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/contact.svg`}
+	doodle={getThemeImgPath('contact.svg', true)}
 >
 	<div class="flex flex-col items-center justify-center gap-10 lg:flex-row">
 		<!-- contact list -->

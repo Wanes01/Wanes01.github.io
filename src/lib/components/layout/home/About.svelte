@@ -1,6 +1,6 @@
 <script lang="ts">
-	import isDarkMode from '$lib/stores/themes.svelte';
 	import HomeSection from '../HomeSection.svelte';
+	import { getThemeImgPath } from '$lib/utility/utils';
 	import { aboutItems, aboutTitle } from '$lib/data/about';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';
@@ -32,7 +32,7 @@
 <HomeSection
 	title={aboutTitle.toString()}
 	titleId="about"
-	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/about.svg`}
+	doodle={getThemeImgPath('about.svg', true)}
 >
 	<ul class="flex flex-col gap-y-10 text-[1.11rem] leading-relaxed lg:gap-y-5">
 		{#each aboutItems as item, i}
@@ -45,11 +45,7 @@
 					{@html item.desc.toString()}
 				</p>
 				<div use:registerItem class="flex justify-center lg:w-1/2">
-					<img
-						src={`/doodles${isDarkMode() ? '_dark' : ''}/${item.img}.svg`}
-						alt=""
-						class={item.cls}
-					/>
+					<img src={getThemeImgPath(`${item.img}.svg`, true)} alt="" class={item.cls} />
 				</div>
 			</li>
 		{/each}

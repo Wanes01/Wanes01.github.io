@@ -3,7 +3,7 @@
 	import { projects, projectsSectionTitle, skillsText } from '$lib/data/projects';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';
-	import isDarkMode from '$lib/stores/themes.svelte';
+	import { getThemeImgPath } from '$lib/utility/utils';
 
 	const NEXT_PROJECT_DELAY = 5500;
 	let projectIndex = $state(0);
@@ -69,7 +69,7 @@
 <HomeSection
 	title={projectsSectionTitle.toString()}
 	titleId="projects"
-	doodle={`/doodles${isDarkMode() ? '_dark' : ''}/projects.svg`}
+	doodle={getThemeImgPath('projects.svg', true)}
 >
 	<div bind:this={container} class="flex flex-col items-center gap-8 opacity-0 lg:flex-row">
 		<div class="relative w-full lg:basis-2/3">
