@@ -5,6 +5,14 @@ interface NavLink {
     id: string;
 }
 
+export const langToggle = tString()
+    .set('en', 'language')
+    .set('it', 'lingua');
+
+export const themeToggle = tString()
+    .set('en', 'theme')
+    .set('it', 'tema');
+
 export const sections: NavLink[] = [
     {
         title: tString().set('en', 'About').set('it', 'Chi sono'),

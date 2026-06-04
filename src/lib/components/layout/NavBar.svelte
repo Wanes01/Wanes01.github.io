@@ -1,6 +1,6 @@
 <script lang="ts">
 	import isDarkMode, { toggleDarkMode } from '$lib/stores/themes.svelte';
-	import { sections } from '$lib/data/navigation';
+	import { sections, langToggle, themeToggle } from '$lib/data/navigation';
 	import { slide } from 'svelte/transition';
 	import { setLocale } from '$lib/i18n/locale.svelte';
 	import Toggle from './Toggle.svelte';
@@ -15,7 +15,7 @@
 		<div class="flex flex-row items-center gap-4">
 			<!-- language toggle -->
 			<div class="flex flex-row items-baseline gap-2">
-				<p class="font-fira text-sm text-ash dark:text-ash-dark">language</p>
+				<p class="font-fira text-sm text-ash dark:text-ash-dark">{langToggle}</p>
 				<Toggle ariaLabel="Toggle language" onToggle={(isIt) => setLocale(isIt ? 'it' : 'en')}>
 					{#snippet a()}
 						<p>en</p>
@@ -27,7 +27,7 @@
 			</div>
 			<!-- theme toggle -->
 			<dir class="flex flex-row items-baseline gap-2">
-				<p class="font-fira text-sm text-ash dark:text-ash-dark">theme</p>
+				<p class="font-fira text-sm text-ash dark:text-ash-dark">{themeToggle}</p>
 				<Toggle
 					ariaLabel="Toggle theme"
 					onToggle={(dark) => {

@@ -26,14 +26,14 @@ export default class Particle {
     private static readonly STRENGTH = 5.5;
 
     // velocity multiplier applied every frame (0-1). values below 1 simulate drag
-    private static readonly DAMPING = 0.99;
+    private static readonly DAMPING = 0.991;
 
     // minimum tangential (orbital) speed
     private static readonly MIN_TANGENTIAL_SPEED = 0.5;
 
     // base force applied to all particles when the user clicks.
     // higher = stronger impulse
-    private static readonly IMPULSE_BASE_FORCE = 450;
+    private static readonly IMPULSE_BASE_FORCE = 4000;
 
     // each particle has a unique orbital radius drawn randomly from [MIN_RAND_DIST, MAX_RAND_DIST]
     //private readonly MIN_DIST = getRandomIntInclusive(
@@ -103,7 +103,8 @@ export default class Particle {
             const idx = this.x - impulseX;
             const idy = this.y - impulseY;
             const idist = Math.sqrt(idx * idx + idy * idy);
-            const impulseStrength = Particle.IMPULSE_BASE_FORCE / idist;
+            // sqrt to make the impulse have a weaker effect on distant particles 
+            const impulseStrength = Particle.IMPULSE_BASE_FORCE / (idist * Math.sqrt(idist));
             this.vx += (idx / idist) * impulseStrength;
             this.vy += (idy / idist) * impulseStrength;
         }

@@ -24,7 +24,7 @@
 
 		const EDGE_COLOR = !dark
 			? { r: 20, g: 71, b: 230, a: 0.3 }
-			: { r: 77, g: 157, b: 224, a: 0.37 };
+			: { r: 77, g: 157, b: 224, a: 0.38 };
 
 		// prevents particles from disappearing
 		const MIN_ALPHA = 80;
@@ -35,7 +35,7 @@
 		// minimum and maximum orbit from attractor
 		// values on mobile : values on desktop
 		const MIN_ORBIT = window.innerWidth < 768 ? 100 : 120;
-		const MAX_ORBIT = window.innerWidth < 768 ? 350 : 900;
+		const MAX_ORBIT = window.innerWidth < 768 ? 250 : 900;
 		const PARTICLES_AMOUNT = window.innerWidth < 768 ? 75 : 200;
 
 		// maximum distance in pixels between two particles for a connection to be drawn.
@@ -45,7 +45,7 @@
 
 		// probability [0,1] that any two particles will have a connection between them.
 		// applied once at initialization, not every frame.
-		const CONNECTION_PROBABILITY = 0.35;
+		const CONNECTION_PROBABILITY = window.innerWidth < 768 ? 0.35 : 0.4;
 
 		// cursor attraction pulse rings amount
 		const RINGS = 3;

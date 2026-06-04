@@ -116,7 +116,7 @@
 						: 'border-slate-500 bg-slate-200 dark:border-slate-400 dark:bg-slate-100'}"
 				></div>
 
-				<p class="flex cursor-default flex-col gap-1 bg-slate-50/70 dark:bg-paper-dark/70">
+				<p class="flex cursor-auto flex-col gap-1 bg-slate-50/70 dark:bg-paper-dark/70">
 					<span class="font-fira text-slate-500 dark:text-slate-400">{item.year}</span>
 					<span class="text-base font-semibold text-carbon dark:text-paper">{item.title}</span>
 					<span class="text-sm leading-relaxed text-slate-600 dark:text-slate-400"

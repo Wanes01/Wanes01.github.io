@@ -92,7 +92,7 @@
 		<!-- contact list -->
 		<div
 			bind:this={contactList}
-			class="flex cursor-default flex-col gap-2 bg-slate-50/70 lg:w-1/2 dark:bg-paper-dark/70"
+			class="flex cursor-auto flex-col gap-2 bg-slate-50/70 lg:w-1/2 dark:bg-paper-dark/70"
 		>
 			<h3 class="text-xl font-semibold text-blaze italic dark:text-blaze-dark">
 				{contactData.invitation.title}

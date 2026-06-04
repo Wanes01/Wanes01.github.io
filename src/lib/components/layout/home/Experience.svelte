@@ -132,7 +132,7 @@
 								? 'border-blaze bg-orange-300 dark:border-blaze-dark dark:bg-orange-200'
 								: 'border-slate-500 bg-slate-200 dark:border-slate-400 dark:bg-slate-100'}"
 						></div>
-						<p class="flex cursor-default flex-col gap-1 bg-slate-50/70 dark:bg-paper-dark/70">
+						<p class="flex cursor-auto flex-col gap-1 bg-slate-50/70 dark:bg-paper-dark/70">
 							<span class="flex items-center gap-1.5 font-fira text-ash dark:text-slate-400">
 								<img src={icon} class="w-6" alt="" />
 								{item.year}

@@ -103,7 +103,7 @@
 
 		<!-- project info -->
 		<div
-			class="info flex w-full cursor-default flex-col gap-6 bg-slate-50/60 lg:basis-1/3 dark:bg-paper-dark/60"
+			class="info flex w-full cursor-auto flex-col gap-6 bg-slate-50/60 lg:basis-1/3 dark:bg-paper-dark/60"
 		>
 			<div bind:this={infoEl} class="flex min-h-85 flex-col gap-2 md:min-h-0 lg:min-h-0">
 				<p class="font-fira text-sm text-ash dark:text-ash-dark">

@@ -41,7 +41,7 @@
 					? 'items-center lg:flex-row-reverse'
 					: ''}"
 			>
-				<p use:registerItem class="cursor-default bg-slate-50/60 lg:w-1/2 dark:bg-paper-dark/60">
+				<p use:registerItem class="bg-slate-50/60 lg:w-1/2 dark:bg-paper-dark/60">
 					{@html item.desc.toString()}
 				</p>
 				<div use:registerItem class="flex justify-center lg:w-1/2">

@@ -22,14 +22,10 @@
 	};
 </script>
 
-<section class="flex flex-col gap-5">
+<section class="flex cursor-auto flex-col gap-5">
 	<div class="my-5 flex flex-row items-center gap-3">
 		<img use:fadeInUp={0.1} src={doodle} alt="" class="w-8" />
-		<h2
-			use:fadeInUp={0.3}
-			id={titleId}
-			class="cursor-default scroll-mt-68 text-3xl font-bold lg:scroll-mt-16"
-		>
+		<h2 use:fadeInUp={0.3} id={titleId} class="scroll-mt-68 text-3xl font-bold lg:scroll-mt-16">
 			{title}
 		</h2>
 	</div>
