@@ -121,7 +121,7 @@
 					style="top: {blazeMobileY}px"
 				></div>
 
-				{#each experienceData.allLifeEvents as item, i}}
+				{#each experienceData.allLifeEvents as item, i}
 					<div class="relative flex flex-col gap-1 pb-10 pl-8">
 						<div
 							use:mobileNode={i}
