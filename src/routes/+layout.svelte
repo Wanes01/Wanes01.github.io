@@ -4,8 +4,13 @@
 	import NavBar from '$lib/components/layout/NavBar.svelte';
 	import ParticleCanvasBackground from '$lib/components/layout/ParticleCanvasBackground.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
+	import { theme } from '$lib/stores/themes.svelte';
 
 	let { children } = $props();
+
+	$effect(() => {
+		document.documentElement.classList.toggle('dark', theme.dark);
+	});
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>

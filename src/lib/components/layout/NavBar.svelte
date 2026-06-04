@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { toggleDarkMode } from '$lib/stores/themes.svelte';
+	import { theme, toggleDarkMode } from '$lib/stores/themes.svelte';
 	import { getThemeImgPath } from '$lib/utility/utils';
 	import { sections, langToggle, themeToggle } from '$lib/data/navigation';
 	import { slide } from 'svelte/transition';
-	import { setLocale } from '$lib/i18n/locale.svelte';
+	import { setLocale, getLocale } from '$lib/i18n/locale.svelte';
 	import Toggle from './Toggle.svelte';
 
 	let menuOpen = $state(false);
@@ -17,7 +17,11 @@
 			<!-- language toggle -->
 			<div class="flex flex-row items-baseline gap-2">
 				<p class="font-fira text-sm text-ash dark:text-ash-dark">{langToggle}</p>
-				<Toggle ariaLabel="Toggle language" onToggle={(isIt) => setLocale(isIt ? 'it' : 'en')}>
+				<Toggle
+					ariaLabel="Toggle language"
+					onToggle={(isIt) => setLocale(isIt ? 'it' : 'en')}
+					isB={getLocale() !== 'en'}
+				>
 					{#snippet a()}
 						<p>en</p>
 					{/snippet}
@@ -31,10 +35,10 @@
 				<p class="font-fira text-sm text-ash dark:text-ash-dark">{themeToggle}</p>
 				<Toggle
 					ariaLabel="Toggle theme"
-					onToggle={(dark) => {
+					onToggle={(_) => {
 						toggleDarkMode();
-						document.documentElement.classList.toggle('dark', dark);
 					}}
+					isB={theme.dark}
 				>
 					{#snippet a()}
 						<div

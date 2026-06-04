@@ -5,6 +5,8 @@
 	import { animate, inView } from 'motion';
 	import { getThemeImgPath } from '$lib/utility/utils';
 
+	const arrowImg = getThemeImgPath('arrow_left.svg', true);
+
 	const NEXT_PROJECT_DELAY = 5500;
 	let projectIndex = $state(0);
 	let project = $derived(projects[projectIndex]);
@@ -20,31 +22,39 @@
 
 	let aIsTop = $state(true); // if A is on top of image B
 
-	$effect(() => {
-		const interval = setInterval(() => {
-			const nextIndex = (projectIndex + 1) % projects.length;
+	// the last time a image swap was made
+	// this is used to handle user custom swap on images
+	let lastInteraction = $state(Date.now());
 
-			if (aIsTop) {
-				// B enters, A leaves
-				imgBIndex = nextIndex;
-				if (imgB) animate(imgB, { opacity: [0, 1] }, { duration: 0.6, ease: 'easeInOut' });
-				if (imgA) animate(imgA, { opacity: [1, 0] }, { duration: 0.6, ease: 'easeInOut' });
-			} else {
-				imgAIndex = nextIndex;
-				if (imgA) animate(imgA, { opacity: [0, 1] }, { duration: 0.6, ease: 'easeInOut' });
-				if (imgB) animate(imgB, { opacity: [1, 0] }, { duration: 0.6, ease: 'easeInOut' });
-			}
+	// goes to the project with the specified index
+	const goTo = (nextIndex: number) => {
+		lastInteraction = Date.now();
+		if (aIsTop) {
+			imgBIndex = nextIndex;
+			if (imgB) animate(imgB, { opacity: [0, 1] }, { duration: 0.6, ease: 'easeInOut' });
+			if (imgA) animate(imgA, { opacity: [1, 0] }, { duration: 0.6, ease: 'easeInOut' });
+		} else {
+			imgAIndex = nextIndex;
+			if (imgA) animate(imgA, { opacity: [0, 1] }, { duration: 0.6, ease: 'easeInOut' });
+			if (imgB) animate(imgB, { opacity: [1, 0] }, { duration: 0.6, ease: 'easeInOut' });
+		}
 
-			if (infoEl) {
-				animate(infoEl, { opacity: 0, x: -20 }, { duration: 0.2, ease: 'easeIn' }).then(() => {
-					projectIndex = nextIndex;
-					animate(infoEl!, { opacity: [0, 1], x: [40, 0] }, { duration: 0.4, ease: 'easeOut' });
-				});
-			} else {
+		if (infoEl) {
+			animate(infoEl, { opacity: 0, x: -20 }, { duration: 0.2, ease: 'easeIn' }).then(() => {
 				projectIndex = nextIndex;
-			}
+				animate(infoEl!, { opacity: [0, 1], x: [40, 0] }, { duration: 0.4, ease: 'easeOut' });
+			});
+		} else {
+			projectIndex = nextIndex;
+		}
 
-			aIsTop = !aIsTop;
+		aIsTop = !aIsTop;
+	};
+
+	$effect(() => {
+		lastInteraction; // reactive dependency (restarts the delay)
+		const interval = setInterval(() => {
+			goTo((projectIndex + 1) % projects.length);
 		}, NEXT_PROJECT_DELAY);
 
 		return () => clearInterval(interval);
@@ -71,7 +81,7 @@
 	titleId="projects"
 	doodle={getThemeImgPath('projects.svg', true)}
 >
-	<div bind:this={container} class="flex flex-col items-center gap-8 opacity-0 lg:flex-row">
+	<div bind:this={container} class="flex flex-col items-stretch gap-8 opacity-0 lg:flex-row">
 		<div class="relative w-full lg:basis-2/3">
 			<div class="lg:overflow-visible">
 				<img
@@ -103,12 +113,28 @@
 
 		<!-- project info -->
 		<div
-			class="info flex w-full cursor-auto flex-col gap-6 bg-slate-50/60 lg:basis-1/3 dark:bg-paper-dark/60"
+			class="info flex w-full cursor-auto flex-col gap-6 bg-slate-50/60 lg:grid lg:basis-1/3 lg:grid-rows-[2fr_7fr] dark:bg-paper-dark/60"
 		>
-			<div bind:this={infoEl} class="flex min-h-85 flex-col gap-2 md:min-h-0 lg:min-h-0">
+			<div
+				class="flex flex-row items-center justify-between gap-2 md:justify-start lg:self-end-safe"
+			>
+				<button
+					onclick={() => goTo((projectIndex - 1 + projects.length) % projects.length)}
+					class="cursor-pointer transition-transform active:scale-70"
+				>
+					<img src={arrowImg} alt="previews project" class="h-6 w-15" />
+				</button>
 				<p class="font-fira text-sm text-ash dark:text-ash-dark">
 					{String(projectIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
 				</p>
+				<button
+					onclick={() => goTo((projectIndex + 1) % projects.length)}
+					class="cursor-pointer transition-transform active:scale-70"
+				>
+					<img src={arrowImg} alt="next project" class="h-6 w-15 rotate-180" />
+				</button>
+			</div>
+			<div bind:this={infoEl} class="flex min-h-85 flex-col gap-2 md:min-h-0 lg:min-h-0">
 				<a href={project.link} target="_blank">
 					<h3
 						class="inline text-2xl font-bold text-ocean underline underline-offset-4 transition-colors hover:text-blaze dark:text-ocean-dark dark:hover:text-blaze-dark"
