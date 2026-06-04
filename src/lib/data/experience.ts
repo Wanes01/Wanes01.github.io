@@ -56,7 +56,7 @@ const work: LifeEvent[] = [
     {
         year: '03/2022 - 09/2022',
         title: tString()
-            .set('en', 'Full Stack Developer ~ Trust IT-services'),
+            .set('en', 'Full Stack Developer ~ Trust-IT Services'),
         desc: tString()
             .set('en', `Ported Drupal 7 to 9 modules in PHP for the <a href="https://www.ecmwf.int/en/about" target="_blank" class="text-ocean dark:text-ocean-dark hover:text-blaze dark:hover:text-blaze-dark transition-colors duration-200 underline underline-offset-4">ECMWF</a> (<span class="italic">European Centre for Medium-Range Weather Forecasts</span>) website. Built an internal data aggregation portal using a JS frontend and backend.`)
             .set('it', `Porting di moduli da Drupal 7 a 9 in PHP per il sito web di <a href="https://www.ecmwf.int/en/about" target="_blank" class="text-ocean dark:text-ocean-dark hover:text-blaze dark:hover:text-blaze-dark transition-colors duration-200 underline underline-offset-4">ECMWF</a> (<span class="italic">European Centre for Medium-Range Weather Forecasts</span>). Sviluppo di un portale interno di aggregazione dati con frontend e backend in JS.`)
