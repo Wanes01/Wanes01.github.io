@@ -13,7 +13,6 @@
 	// see web3forms docs: https://docs.web3forms.com/
 	const WEB3FORMS_KEY = 'faaf3899-938c-43b2-a950-ec89ad44b69b';
 	const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
-	const CV_BASE_URL = 'https://raw.githubusercontent.com/Wanes01/Wanes01.github.io/main/cvs';
 	const CV_NEW_NAME = 'cv_emir_wanes_aouioua.pdf';
 
 	let contactList = $state<HTMLElement>();
@@ -34,38 +33,6 @@
 		if (resultStatus === 'processing' || resultStatus === undefined) return '';
 		return resultStatus === 'success' ? contactData.msgResult.success : contactData.msgResult.error;
 	});
-
-	// download the cv pdf
-	const downloadResume = async (): Promise<void> => {
-		const fileName = `cv_${getLocale()}.pdf`;
-		const cvUri = `${CV_BASE_URL}/${fileName}`;
-		try {
-			const response = await fetch(cvUri);
-
-			if (!response.ok) {
-				console.error('could not download the cv file');
-				return;
-			}
-			const blob = await response.blob();
-
-			// makes a local url for the blob
-			const localUrl = window.URL.createObjectURL(blob);
-
-			// makes a temp link to change the file name
-			const link = document.createElement('a');
-			link.href = localUrl;
-			link.download = CV_NEW_NAME;
-
-			// simulates a click to start the download
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
-
-			window.URL.revokeObjectURL(localUrl);
-		} catch (error) {
-			console.error('could not download the cv file');
-		}
-	};
 
 	onMount(() => {
 		const elementsToAnimate = [contactList, formTerminal];
@@ -175,13 +142,14 @@
 			</div>
 			<div class="flex flex-col items-center gap-3">
 				<p>{@html contactData.invitation.resumeInfo.toString()} {getLocale()}</p>
-				<button
-					class=" flex w-3/5 cursor-pointer flex-row items-center justify-center gap-1.5 rounded-lg border border-b-3 border-blaze bg-orange-50 py-1.5 font-semibold text-blaze transition-transform duration-75 active:border-t-3 active:border-b active:bg-blaze/20 dark:border-orange-700 dark:bg-orange-200 dark:text-orange-700 active:dark:bg-orange-300/90"
-					onclick={downloadResume}
+				<a
+					href={`/cvs/cv_${getLocale()}.pdf`}
+					download={CV_NEW_NAME}
+					class=" flex w-full cursor-pointer flex-row items-center justify-center gap-1.5 rounded-lg border border-b-3 border-blaze bg-orange-50 py-1.5 font-semibold text-blaze transition-transform duration-75 active:border-t-3 active:border-b active:bg-blaze/20 dark:border-orange-700 dark:bg-orange-200 dark:text-orange-700 active:dark:bg-orange-300/90"
 				>
 					<p>{contactData.invitation.downloadResume}</p>
 					<img src={getThemeImgPath('cv.svg', false)} alt="" class="w-6" />
-				</button>
+				</a>
 			</div>
 		</div>
 		<div class="w-full">

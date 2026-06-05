@@ -59,8 +59,8 @@ export const projects: Project[] = [
     {
         title: 'Jvmt',
         desc: tString()
-            .set('en', 'A group project in Java, a digital implementation of the Diamant board game.')
-            .set('it', "Un progetto di gruppo in Java, una trasposizione digitale del gioco da tavolo Diamant."),
+            .set('en', 'Digital adaptation of the board game Diamant (group project). Software architecture designed with a strong focus on maintainability, actively applying GoF design patterns (Strategy, Factory, Builder, Template Method) to manage the game logic.')
+            .set('it', "Transposizione digitale del gioco da tavolo Diamant (progetto di gruppo). Architettura software progettata con un forte focus sulla manutenibilità, applicando attivamente i design pattern GoF (Strategy, Factory, Builder, Template Method) per la gestione della logica di gioco."),
         img: 'jvmt',
         link: 'https://github.com/Wanes01/OOP24-jvmt',
         skills: [skills.java, skills.kotlin]
