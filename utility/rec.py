@@ -3,8 +3,8 @@ import shutil
 import re
 from pathlib import Path
 
-SRC_DIR = "./doodles"
-DST_DIR = "./doodles_dark"
+SRC_DIR = "../static/icons"
+DST_DIR = "../static/icons_dark"
 
 COLOR_RULES = [
     ("#0066cc", "#4d9de0"),  # ocean

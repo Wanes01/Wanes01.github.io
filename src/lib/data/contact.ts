@@ -13,6 +13,8 @@ interface ContactPageData {
     invitation: {
         title: TString;
         description: TString;
+        resumeInfo: TString;
+        downloadResume: TString;
     },
     terminal: {
         title: TString;
@@ -59,7 +61,17 @@ export const contactData: ContactPageData = {
             .set('it', `Contattami!`),
         description: tString()
             .set('en', `You can contact me on these platforms, or use this form to send me a message.`)
-            .set('it', `Puoi contattarmi su queste piattaforme, oppure usare il form per mandarmi un messaggio.`)
+            .set('it', `Puoi contattarmi su queste piattaforme, oppure usare il form per mandarmi un messaggio.`),
+        resumeInfo: tString()
+            .set('en', `If you want to know more about me, you can download my resume.
+					<br />
+					<span class="font-bold underline">Note</span>: to change the language of the resume, change the language of this page. Current language:`)
+            .set('it', `Se vuoi sapere di più su di me, puoi scaricare il mio curriculum.
+                    <br />
+					<span class="font-bold underline">Nota</span>: per cambiare la lingua del cv, modifica la lingua di questa pagina. Lingua attuale:`),
+        downloadResume: tString()
+            .set('en', 'Download CV')
+            .set('it', 'Scarica CV')
     },
     terminal: {
         title: tString()
