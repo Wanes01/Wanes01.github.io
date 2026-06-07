@@ -21,6 +21,15 @@ export const skillsText = tString()
 
 export const projects: Project[] = [
     {
+        title: 'ECMWF',
+        desc: tString()
+            .set('en', 'I helped port the Drupal modules for the official website of ECMWF, the European center responsible for receiving, processing, and transmitting international meteorological data.')
+            .set('it', 'Ho collaborato al porting dei moduli Drupal del sito web ufficiale di ECMWF, centro europeo che si occupa di ricezione, elaborazione e trasmissione dati meteorologici internazionali.'),
+        img: 'ecmwf',
+        link: 'https://www.ecmwf.int/',
+        skills: [skills.php, skills.js]
+    },
+    {
         title: 'Socratic C',
         desc: tString()
             .set('en', 'A containerized web-based IDE for learning the C language, featuring an LLM-powered tutor with multi-provider support, including local models via Ollama, that guides students through errors and concepts in real time.')
