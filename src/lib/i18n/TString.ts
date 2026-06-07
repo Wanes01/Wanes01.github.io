@@ -1,7 +1,7 @@
 import { getLocale, type Locale } from '$lib/i18n/locale.svelte';
 
 export default class TString {
-    // maps a language to it's translation
+    // maps a language to its translation
     private translations = new Map<Locale, string>();
 
     // sets a new translation for the specified text
