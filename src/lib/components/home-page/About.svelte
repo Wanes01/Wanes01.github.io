@@ -1,9 +1,8 @@
 <script lang="ts">
-	import HomeSection from '../HomeSection.svelte';
-	import { getThemeImgPath } from '$lib/utility/utils';
+	import HomeSection from '../layout/HomeSection.svelte';
+	import { getThemeImgPath, animateEaseOutOn } from '$lib/utility/utils';
 	import { aboutItems, aboutTitle } from '$lib/data/about';
 	import { onMount } from 'svelte';
-	import { animate, inView } from 'motion';
 
 	let descriptionsHtmlElements = $state<HTMLElement[]>([]);
 
@@ -13,19 +12,7 @@
 	}
 
 	onMount(() => {
-		descriptionsHtmlElements.forEach((item, i) => {
-			inView(
-				item,
-				() => {
-					animate(
-						item,
-						{ opacity: [0, 1], y: [30, 0] },
-						{ duration: 0.5, delay: 0.1, ease: 'easeOut' }
-					);
-				},
-				{ amount: 0.3 }
-			);
-		});
+		animateEaseOutOn(...descriptionsHtmlElements);
 	});
 </script>
 

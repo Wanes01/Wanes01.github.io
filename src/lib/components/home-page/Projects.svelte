@@ -1,5 +1,5 @@
 <script lang="ts">
-	import HomeSection from '../HomeSection.svelte';
+	import HomeSection from '../layout/HomeSection.svelte';
 	import { projects, projectsSectionTitle, skillsText } from '$lib/data/projects';
 	import { onMount } from 'svelte';
 	import { animate, inView } from 'motion';

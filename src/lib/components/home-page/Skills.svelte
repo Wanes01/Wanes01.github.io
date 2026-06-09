@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { skillSections, skillSectionTitle } from '$lib/data/skills';
 	import { onMount } from 'svelte';
-	import HomeSection from '../HomeSection.svelte';
-	import Terminal from './Terminal.svelte';
-	import TerminalLine from './TerminalLine.svelte';
+	import HomeSection from '../layout/HomeSection.svelte';
+	import Terminal from '../terminal/Terminal.svelte';
+	import TerminalLine from '../terminal/TerminalLine.svelte';
 	import { animate, inView, stagger } from 'motion';
 	import { getThemeImgPath } from '$lib/utility/utils';
 

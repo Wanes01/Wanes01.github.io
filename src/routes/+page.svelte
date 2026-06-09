@@ -1,10 +1,10 @@
 <script>
-	import WelcomeBanner from '$lib/components/layout/home/WelcomeBanner.svelte';
-	import About from '$lib/components/layout/home/About.svelte';
-	import Experience from '$lib/components/layout/home/Experience.svelte';
-	import Skills from '$lib/components/layout/home/Skills.svelte';
-	import Projects from '$lib/components/layout/home/Projects.svelte';
-	import Contact from '$lib/components/layout/home/Contact.svelte';
+	import WelcomeBanner from '$lib/components/home-page/WelcomeBanner.svelte';
+	import About from '$lib/components/home-page/About.svelte';
+	import Experience from '$lib/components/home-page/experience-section/Experience.svelte';
+	import Skills from '$lib/components/home-page/Skills.svelte';
+	import Projects from '$lib/components/home-page/Projects.svelte';
+	import Contact from '$lib/components/home-page/contact-section/Contact.svelte';
 </script>
 
 <div class="flex flex-col items-center gap-25 px-10 py-10 lg:gap-35 lg:px-50">

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { experienceData } from '$lib/data/experience';
-	import HomeSection from '../HomeSection.svelte';
+	import HomeSection from '../../layout/HomeSection.svelte';
 	import { onMount } from 'svelte';
 	import TimelineColumn from './TimelineColumn.svelte';
 	import { animate, inView } from 'motion';

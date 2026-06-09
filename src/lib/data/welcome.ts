@@ -11,3 +11,15 @@ export const welcome = {
         .set('en', 'This is me:')
         .set('it', 'Questo sono io:')
 }
+
+export const shellTypingWords = [
+    'full-stack developer',
+    'CS/Comp.Engineering student',
+    'backend engineer',
+    'problem solver',
+    'Java enjoyer',
+    'docker composer',
+    'REST API craftsman',
+    'git blame survivor',
+    'open source contributor'
+];

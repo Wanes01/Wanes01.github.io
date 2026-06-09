@@ -4,7 +4,7 @@
 	import { sections, langToggle, themeToggle } from '$lib/data/navigation';
 	import { slide } from 'svelte/transition';
 	import { setLocale, getLocale } from '$lib/i18n/locale.svelte';
-	import Toggle from './Toggle.svelte';
+	import Toggle from '../input/Toggle.svelte';
 
 	let menuOpen = $state(false);
 </script>

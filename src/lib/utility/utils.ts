@@ -1,4 +1,5 @@
 import { theme } from "$lib/stores/themes.svelte";
+import { inView, animate } from "motion";
 
 /**
  * Generates a random integer between min and max
@@ -24,4 +25,27 @@ export const getRandomIntInclusive = (min: number, max: number): number => {
  */
 export const getThemeImgPath = (img: string, isDoodle: boolean): string => {
     return `/${isDoodle ? 'doodles' : 'icons'}${theme.dark ? '_dark' : ''}/${img}`;
+}
+
+/**
+ * Applies an ease-out animation on component first draw on the specified elements.
+ * This animation requires the HTMLElement to have an initial opacity of 0
+ * 
+ * Note: this function must be collect on component mount (see Svelte's onMount callback)
+ * @param elements the HTMLElements to animate
+ */
+export const animateEaseOutOn = (...elements: HTMLElement[]) => {
+    elements.forEach((item) => {
+        inView(
+            item,
+            () => {
+                animate(
+                    item,
+                    { opacity: [0, 1], y: [30, 0] },
+                    { duration: 0.5, delay: 0.1, ease: 'easeOut' }
+                );
+            },
+            { amount: 0.3 }
+        );
+    });
 }

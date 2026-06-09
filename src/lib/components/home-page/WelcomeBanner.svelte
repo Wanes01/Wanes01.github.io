@@ -1,27 +1,15 @@
 <script lang="ts">
 	import { getLocale } from '$lib/i18n/locale.svelte';
-	import { welcome } from '$lib/data/welcome';
+	import { welcome, shellTypingWords } from '$lib/data/welcome';
 	import { getThemeImgPath } from '$lib/utility/utils';
-	import ShellTyping from './ShellTyping.svelte';
-	import Terminal from './Terminal.svelte';
-	import TerminalLine from './TerminalLine.svelte';
+	import ShellTyping from '../terminal/ShellTyping.svelte';
+	import Terminal from '../terminal/Terminal.svelte';
+	import TerminalLine from '../terminal/TerminalLine.svelte';
 	import { animate } from 'motion';
 	import { onMount } from 'svelte';
 
 	let welcomeMessage = $state<HTMLElement>();
 	let terminal = $state<HTMLElement>();
-
-	const words = [
-		'full-stack developer',
-		'CS/Comp.Engineering student',
-		'backend engineer',
-		'problem solver',
-		'Java enjoyer',
-		'docker composer',
-		'REST API craftsman',
-		'git blame survivor',
-		'open source contributor'
-	];
 
 	onMount(() => {
 		animate(
@@ -56,7 +44,10 @@
 		<p>
 			{@html welcome.introductionHTML.toString()}
 		</p>
-		<ShellTyping classes="font-bold text-blaze dark:text-blaze-dark min-h-20 md:min-h-0" {words} />
+		<ShellTyping
+			classes="font-bold text-blaze dark:text-blaze-dark min-h-20 md:min-h-0"
+			words={shellTypingWords}
+		/>
 		<p class="mt-2 text-base text-ash dark:text-ash-dark">
 			{welcome.caption}
 		</p>
