@@ -33,12 +33,12 @@ export const aboutItems: AboutItem[] = [
     },
     { // thesis
         img: 'world', cls: 'lg:w-50 w-50', desc: tString()
-            .set('en', `My thesis involves rebuilding the data layer of <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean dark:text-ocean-dark hover:text-blaze hover:dark:text-blaze-dark">Alchemist</a>, an open source physical
-				simulator developed at the University of Bologna, to support GeoTIFF and Copernicus EU datasets.
-				It's a project I'm genuinely looking forward to.`)
-            .set('it', `La mia tesi prevede la riorganizzazione del livello dati di <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean dark:text-ocean-dark hover:text-blaze hover:dark:text-blaze-dark">Alchemist</a>, un simulatore fisico open source
-                sviluppato dall'Università di Bologna, al fine di supportare i tipi GeoTIFF estratti dal programma Copernicus dell'Unione Europea.
-				È un progetto davvero entusiasmante.`)
+            .set('en', `My thesis project involved extending the data layer of <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean dark:text-ocean-dark hover:text-blaze hover:dark:text-blaze-dark">Alchemist</a>, an open source
+                scientific simulator developed at the University of Bologna, to support real-world geospatial datasets (NetCDF/GRIB) from the Copernicus EU program, with spatio-temporal interpolation and local caching.
+                A project I genuinely enjoyed working on.`)
+            .set('it', `Il mio progetto di tesi ha previsto l'estensione del livello dati di <a href="https://alchemistsimulator.github.io/" target="_blank" class="underline text-ocean dark:text-ocean-dark hover:text-blaze hover:dark:text-blaze-dark">Alchemist</a>, un simulatore scientifico open source
+                sviluppato dall'Università di Bologna, per supportare dataset geospaziali reali (NetCDF/GRIB) del programma Copernicus dell'Unione Europea, con interpolazione spazio-temporale e cache locale.
+                Un progetto che ho trovato davvero coinvolgente.`)
     },
     { // area of interests
         img: 'arch', cls: 'w-full lg:w-130', desc: tString()

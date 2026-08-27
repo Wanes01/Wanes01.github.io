@@ -21,6 +21,15 @@ export const skillsText = tString()
 
 export const projects: Project[] = [
     {
+        title: 'Alchemist Geospatial',
+        desc: tString()
+            .set('en', "My thesis project: extending the data layer of Alchemist, an open source scientific simulator developed at the University of Bologna, to support real-world geospatial datasets (NetCDF/GRIB) from the Copernicus EU program, with spatio-temporal interpolation and local caching.")
+            .set('it', "Il mio progetto di tesi: estensione del data layer di Alchemist, un simulatore scientifico open source sviluppato dall'Università di Bologna, per supportare dataset geospaziali reali (NetCDF/GRIB) del programma Copernicus dell'Unione Europea, con interpolazione spazio-temporale e cache locale."),
+        img: 'alchemist',
+        link: 'https://alchemistsimulator.github.io/',
+        skills: [skills.kotlin, skills.java]
+    },
+    {
         title: 'ECMWF',
         desc: tString()
             .set('en', 'I helped port the Drupal modules for the official website of ECMWF, the European center responsible for receiving, processing, and transmitting international meteorological data.')

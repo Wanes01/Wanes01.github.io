@@ -47,8 +47,8 @@ const education: LifeEvent[] = [
             .set('en', 'Thesis defense')
             .set('it', 'Discussione della tesi'),
         desc: tString()
-            .set('en', 'Rebuilding the data layer of Alchemist to support GeoTIFF and Copernicus EU datasets.')
-            .set('it', 'Rifondazione del data layer di Alchemist per supportare i dataset GeoTIFF e il dataset Copernicus EU.')
+            .set('en', 'Extending the data layer of Alchemist to support real-world geospatial datasets from the Copernicus EU program.')
+            .set('it', "Estensione del data layer di Alchemist per supportare dataset geospaziali reali del programma Copernicus dell'Unione Europea.")
     }
 ];
 
